@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BRYC Pre-College Programs Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f9f6f1;
+    --surface: #ffffff;
+    --border: #e0d8cc;
+    --text: #1a1714;
+    --muted: #6b6259;
+    --accent: #1d4f3c;
+    --accent-light: #e8f2ed;
+    --accent2: #c8401a;
+    --accent2-light: #fdf0ec;
+    --gold: #c9a84c;
+    --gold-light: #fdf8ec;
+    --tag-bg: #f0ebe3;
+    --radius: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 28px 32px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,.18);
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    letter-spacing: -.3px;
+    margin-bottom: 2px;
+  }
+  header p { font-size: .85rem; opacity: .75; font-weight: 300; }
+
+  /* ── CONTROLS ── */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 24px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 91px;
+    z-index: 90;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1 1 220px;
+    min-width: 180px;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .45;
+    pointer-events: none;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 9px 12px 9px 34px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: .88rem;
+    background: var(--bg);
+    color: var(--text);
+    transition: border-color .2s;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--accent); }
+
+  select {
+    padding: 9px 32px 9px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: .85rem;
+    background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6259'/%3E%3C/svg%3E") no-repeat right 10px center;
+    appearance: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color .2s;
+    min-width: 160px;
+    flex: 0 1 auto;
+  }
+  select:focus { outline: none; border-color: var(--accent); }
+
+  .count-badge {
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+    color: var(--muted);
+    font-weight: 500;
+    padding: 0 4px;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  .count-badge span {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 9px;
+    margin-right: 5px;
+    font-weight: 600;
+    font-size: .78rem;
+  }
+
+  .btn-clear {
+    padding: 9px 14px;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: .82rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .btn-clear:hover { background: var(--tag-bg); border-color: var(--muted); color: var(--text); }
+
+  /* ── TABLE WRAPPER ── */
+  .table-wrap {
+    padding: 20px 24px 40px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07), 0 0 0 1px var(--border);
+    font-size: .85rem;
+  }
+
+  thead {
+    background: #f5f1eb;
+    position: sticky;
+    top: 0;
+  }
+
+  th {
+    padding: 13px 14px;
+    text-align: left;
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    color: var(--muted);
+    border-bottom: 1.5px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color .15s;
+  }
+  th:hover { color: var(--accent); }
+  th .sort-icon { display: inline-block; margin-left: 4px; opacity: .4; font-size: .65rem; }
+  th.sorted { color: var(--accent); }
+  th.sorted .sort-icon { opacity: 1; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .12s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #faf8f5; }
+
+  td {
+    padding: 14px 14px;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  .type-badge {
+    display: inline-block;
+    font-size: .63rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    vertical-align: middle;
+  }
+  .type-virtual { background: #e8ecff; color: #2a3b9e; }
+  .type-hybrid { background: #f0eaff; color: #6b30b0; }
+
+  /* program name */
+  .program-name {
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .program-college {
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* grade tags */
+  .grade-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .grade-tag {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .grade-8  { background: #e8f2ff; color: #2255aa; }
+  .grade-9  { background: #edf5e1; color: #3a7a20; }
+  .grade-10 { background: #fef3dc; color: #8a5c00; }
+  .grade-11 { background: #f2eaff; color: #6b30b0; }
+  .grade-12 { background: #fde8e8; color: #b52a2a; }
+  .grade-other { background: var(--tag-bg); color: var(--muted); }
+
+  /* deadline */
+  .deadline-cell { white-space: nowrap; }
+  .deadline-date { font-weight: 600; font-size: .85rem; }
+  .deadline-passed { color: var(--accent2); }
+  .deadline-soon { color: #c27b00; }
+  .deadline-open { color: var(--accent); }
+  .deadline-badge {
+    display: inline-block;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+  .badge-closed { background: #fde8e8; color: #b52a2a; }
+  .badge-open { background: var(--accent-light); color: var(--accent); }
+  .badge-soon { background: #fef3dc; color: #8a5c00; }
+  .badge-rolling { background: #f0eaff; color: #6b30b0; }
+
+  /* cost */
+  .cost-cell { white-space: nowrap; }
+  .cost-free { color: var(--accent); font-weight: 700; }
+  .cost-paid { font-weight: 500; }
+  .aid-tag {
+    display: block;
+    font-size: .7rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .aid-tag.partial { color: var(--gold); }
+  .aid-tag.none { color: var(--muted); }
+
+  /* areas */
+  .area-tags { display: flex; flex-wrap: wrap; gap: 4px; max-width: 200px; }
+  .area-tag {
+    display: inline-block;
+    font-size: .67rem;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--tag-bg);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .area-tag.stem { background: #e8f2ed; color: var(--accent); }
+  .area-tag.arts { background: #fde8f8; color: #8a2060; }
+  .area-tag.business { background: #fef3dc; color: #8a5c00; }
+  .area-tag.humanities { background: #e8ecff; color: #2a3b9e; }
+  .area-tag.college { background: var(--accent-light); color: var(--accent); }
+
+  /* apply link */
+  .apply-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: .78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .15s, transform .1s;
+  }
+  .apply-btn:hover { background: #163b2c; transform: translateY(-1px); }
+
+  /* empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .empty-state svg { opacity: .25; margin-bottom: 12px; }
+  .empty-state p { font-size: .9rem; }
+
+  /* active filters row */
+  .active-filters {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 24px 12px;
+    background: var(--surface);
+  }
+  .active-filters.visible { display: flex; }
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .filter-chip button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--accent);
+    font-size: .9rem;
+    line-height: 1;
+    padding: 0;
+    opacity: .7;
+  }
+  .filter-chip button:hover { opacity: 1; }
+
+  /* ── VIEW TOGGLE ── */
+  .view-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .view-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all .15s;
+  }
+  .view-btn.active {
+    background: var(--surface);
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  }
+  .view-btn svg { flex-shrink: 0; }
+
+  /* ── CARD GRID ── */
+  .card-wrap {
+    display: none;
+    padding: 16px 20px 40px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .card-wrap.active { display: grid; }
+
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow .15s, border-color .15s;
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    border-color: #c8c0b4;
+  }
+
+  .card-header { display: flex; flex-direction: column; gap: 3px; }
+  .card-name {
+    font-weight: 600;
+    font-size: .92rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .card-college {
+    font-size: .78rem;
+    color: var(--muted);
+  }
+
+  .card-deadline-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    background: var(--bg);
+  }
+  .card-deadline-label {
+    font-size: .7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+  }
+  .card-deadline-val {
+    font-size: .82rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .card-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .card-meta-label {
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+  }
+  .card-meta-val {
+    font-size: .8rem;
+    font-weight: 500;
+  }
+  .card-meta-val.free { color: var(--accent); font-weight: 700; }
+
+  .card-areas { display: flex; flex-wrap: wrap; gap: 4px; }
+  .card-grades { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  .card-apply {
+    display: block;
+    text-align: center;
+    padding: 9px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    transition: background .15s;
+  }
+  .card-apply:hover { background: #163b2c; }
+
+  .card-aid {
+    font-size: .72rem;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .card-aid.full { color: var(--accent); }
+  .card-aid.partial { color: var(--gold); }
+  .card-aid.none { color: var(--muted); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 680px) {
+    header { padding: 18px 16px 14px; }
+    .controls {
+      top: 72px;
+      padding: 10px 12px 10px;
+      gap: 8px;
+    }
+    .search-wrap { flex: 1 1 100%; }
+    select { flex: 1 1 calc(50% - 4px); min-width: 0; font-size: .8rem; }
+    .btn-clear { flex: 0 0 auto; }
+    .count-badge { margin-left: 0; }
+    .view-toggle { margin-left: auto; }
+    .table-wrap { display: none !important; }
+    .card-wrap { padding: 12px 12px 40px; grid-template-columns: 1fr; }
+    .card-wrap.active { display: grid; }
+    /* Force card view on mobile regardless of toggle */
+    .card-wrap { display: grid !important; }
+  }
+
+  @media (min-width: 681px) {
+    .table-wrap.active { display: block; }
+    .table-wrap:not(.active) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pre-College Summer Programs Explorer</h1>
+  <p>Search, filter, and find the right program for every Fellow — sorted by interest, grade, and deadline.</p>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="6" stroke="#1a1714" stroke-width="2"/><path d="M13 13l4 4" stroke="#1a1714" stroke-width="2" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Search programs, schools, topics…" />
+  </div>
+
+  <select id="gradeFilter">
+    <option value="">All Grade Levels</option>
+    <option value="7">7th Grade Rising</option>
+    <option value="8">8th Grade Rising</option>
+    <option value="9">9th Grade Rising</option>
+    <option value="10">10th Grade Rising</option>
+    <option value="11">11th Grade Rising</option>
+    <option value="12">12th Grade Rising</option>
+  </select>
+
+  <select id="typeFilter">
+    <option value="">All Program Types</option>
+    <option value="Residential">Residential Summer</option>
+    <option value="Virtual">Virtual / Online</option>
+    <option value="Hybrid">Hybrid</option>
+  </select>
+
+  <select id="areaFilter">
+    <option value="">All Areas of Interest</option>
+    <option value="STEM">STEM / Science</option>
+    <option value="Computer Science">Computer Science / Tech</option>
+    <option value="Artificial Intelligence">Artificial Intelligence</option>
+    <option value="Mathematics">Mathematics</option>
+    <option value="Engineering">Engineering</option>
+    <option value="Business">Business</option>
+    <option value="Arts">Arts / Media / Film</option>
+    <option value="Humanities">Humanities / Liberal Arts</option>
+    <option value="College Readiness">College Readiness</option>
+    <option value="Leadership">Leadership</option>
+    <option value="Environmental">Environmental / Sustainability</option>
+    <option value="Medicine">Medicine / Health</option>
+    <option value="Writing">Writing / Journalism</option>
+    <option value="Social Justice">Social Justice / Activism</option>
+  </select>
+
+  <select id="aidFilter">
+    <option value="">Any Cost / Aid</option>
+    <option value="free">Free / Full Scholarship</option>
+    <option value="partial">Partial Scholarship Available</option>
+    <option value="paid">Paid (No Aid Listed)</option>
+  </select>
+
+  <select id="statusFilter">
+    <option value="">All Deadlines</option>
+    <option value="open">Still Open</option>
+    <option value="rolling">Rolling Admissions</option>
+  </select>
+
+  <button class="btn-clear" id="clearBtn">Clear All</button>
+
+  <div class="view-toggle" id="viewToggle">
+    <button class="view-btn active" id="btnTable" title="Table view">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="3" rx="1" fill="currentColor"/><rect x="8" y="1" width="5" height="3" rx="1" fill="currentColor"/><rect x="1" y="6" width="5" height="3" rx="1" fill="currentColor"/><rect x="8" y="6" width="5" height="3" rx="1" fill="currentColor"/><rect x="1" y="11" width="5" height="2" rx="1" fill="currentColor"/><rect x="8" y="11" width="5" height="2" rx="1" fill="currentColor"/></svg>
+      Table
+    </button>
+    <button class="view-btn" id="btnCard" title="Card view">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="currentColor"/></svg>
+      Cards
+    </button>
+  </div>
+
+  <div class="count-badge" id="countBadge"><span id="countNum">0</span> programs</div>
+</div>
+
+<div class="active-filters" id="activeFilters"></div>
+
+<div class="table-wrap active" id="tableWrap">
+  <table id="programTable">
+    <thead>
+      <tr>
+        <th data-col="0">Program <span class="sort-icon">↕</span></th>
+        <th data-col="1">Grade Level <span class="sort-icon">↕</span></th>
+        <th data-col="2">Areas of Interest <span class="sort-icon">↕</span></th>
+        <th data-col="3">Deadline <span class="sort-icon">↕</span></th>
+        <th data-col="4">Cost &amp; Aid <span class="sort-icon">↕</span></th>
+        <th>Apply</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="21" cy="21" r="15" stroke="#1a1714" stroke-width="3" fill="none"/><path d="M31 31l10 10" stroke="#1a1714" stroke-width="3" stroke-linecap="round"/></svg>
+    <p>No programs match your filters. Try adjusting your search.</p>
+  </div>
+</div>
+
+<div class="card-wrap" id="cardWrap">
+  <div class="empty-state" id="emptyStateCard" style="display:none;">
+    <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="21" cy="21" r="15" stroke="#1a1714" stroke-width="3" fill="none"/><path d="M31 31l10 10" stroke="#1a1714" stroke-width="3" stroke-linecap="round"/></svg>
+    <p>No programs match your filters. Try adjusting your search.</p>
+  </div>
+</div>
+
+<script>
+const TODAY = new Date('2026-03-25');
+
+const programs = [
+  { name:"21st Century Leaders: Earth Care", college:"Georgia College & State University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/earthcare/", rolling:false },
+  { name:"21st Century Leaders: Film & Entertainment Institute (FEI)", college:"Georgia Institute of Technology", grades:["11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/film-entertainment-institute/", rolling:false },
+  { name:"Arizona State University: Camp Cronkite", college:"Arizona State University", grades:["10","11","12"], areas:["Media"], deadline:"March 15, 2026", cost:"$899", aid:"Scholarships available", url:"https://cronkite.asu.edu/community/high-school-programs/camps/", rolling:false },
+  { name:"Boston University: PROMYS", college:"Boston University", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"February 27, 2026", cost:"Up to $8,000", aid:"Full Scholarship", url:"https://promys.org/programs/promys/for-students/", rolling:false },
+  { name:"Brown University: BEE (International)", college:"Brown University", grades:["10","11","12"], areas:["International Education"], deadline:"May 8, 2026", cost:"$8,270", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/brown-experiential-education-bee", rolling:true },
+  { name:"Brown University: STEM for Rising 9th & 10th", college:"Brown University", grades:["9","10"], areas:["STEM Focus"], deadline:"May 8, 2026", cost:"$6,052", aid:"Full Scholarship", url:"https://precollege.brown.edu/stem-rising", rolling:true },
+  { name:"Brown University: Summer@Brown", college:"Brown University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus","Business Focus","Environmental or Sustainability Focus"], deadline:"May 8, 2026", cost:"$3,748–$10,858", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/summerbrown", rolling:true },
+  { name:"Bucknell University: BASE", college:"Bucknell University", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"See website", cost:"$1,750", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/bucknell-academy-summer-experience", rolling:false },
+  { name:"Bucknell University: Engineering Camp", college:"Bucknell University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (waitlist ~April 1)", cost:"$1,500", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/engineering-camp", rolling:true },
+  { name:"California COSMOS", college:"University of California (6 campuses)", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"February 6, 2026", cost:"$5,518", aid:"Scholarships available", url:"https://cosmos-ucop.ucdavis.edu/app/main", rolling:false },
+  { name:"Carleton College: CLAE", college:"Carleton College", grades:["12"], areas:["College Readiness","Humanities or Liberal Arts Focus","African American Studies"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.carleton.edu/admissions/visit/clae/", rolling:false },
+  { name:"Carleton College: SLAI", college:"Carleton College", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus","Visual or Performing Arts Focus"], deadline:"March 16, 2026 (1-wk) / March 2, 2026 (3-wk)", cost:"$1,500–$5,700", aid:"Scholarships available", url:"https://www.carleton.edu/summer/pre-college/", rolling:false },
+  { name:"Carnegie Mellon: AI Scholars", college:"Carnegie Mellon University", grades:["12"], areas:["Artificial Intelligence (AI)","STEM Focus"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/ai_scholars.html", rolling:false },
+  { name:"Carnegie Mellon: CS Scholars", college:"Carnegie Mellon University", grades:["11"], areas:["STEM Focus","Computer Science"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/computer-science-scholars.html", rolling:false },
+  { name:"Carnegie Mellon: SAMS", college:"Carnegie Mellon University", grades:["12"], areas:["STEM Focus","Mathematics"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/sams.html", rolling:false },
+  { name:"Colorado School of Mines: SUMMET", college:"Colorado School of Mines", grades:["12"], areas:["STEM Focus","Engineering"], deadline:"February 15, 2026", cost:"$50", aid:"Full Scholarship", url:"https://www.mines.edu/undergraduate-admissions/summer-mines-engineering-and-training-summet/", rolling:false },
+  { name:"Colorado State: Women in Construction Management", college:"Colorado State University", grades:["ages 15–18"], areas:["Construction","Engineering","Architecture"], deadline:"March 15, 2026", cost:"$25", aid:"Full Scholarship", url:"https://www.chhs.colostate.edu/cm/programs-and-degrees/b-s-in-construction-management/women-in-construction-management-summer-institute/", rolling:false },
+  { name:"Davidson College: Summer Promise Program", college:"Davidson College", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 12, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.davidson.edu/offices-and-services/civic-engagement/signature-programs/summer-promise-program", rolling:false },
+  { name:"Florida State: Young Scholars Program (YSP)", college:"Florida State University", grades:["12"], areas:["STEM Focus"], deadline:"February 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://ysp.osta.fsu.edu/", rolling:false },
+  { name:"Gonzaga University: SEAS/SSIP", college:"Gonzaga University", grades:["11","12"], areas:["STEM Focus"], deadline:"March 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.gonzaga.edu/school-of-engineering-applied-science/ssip", rolling:false },
+  { name:"Hampshire College: HCSSiM (Math)", college:"Hampshire College", grades:["10","11","12"], areas:["STEM Focus","Mathematics"], deadline:"Rolling (late April priority)", cost:"$7,208", aid:"Full Scholarship", url:"https://hcssim.org/", rolling:true },
+  { name:"Kenyon College: Camp 4", college:"Kenyon College", grades:["11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Visual or Performing Arts Focus"], deadline:"March 2, 2026", cost:"$4,200", aid:"Scholarships available", url:"https://www.kenyon.edu/offices-and-services/camp-4/", rolling:false },
+  { name:"MIT: MITES Summer", college:"Massachusetts Institute of Technology", grades:["12"], areas:["STEM Focus","College Readiness"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://mites.mit.edu/", rolling:false },
+  { name:"Michigan Ross: Summer Business Academy", college:"University of Michigan – Ross", grades:["12"], areas:["Business Focus"], deadline:"January 8, 2026", cost:"$5,500", aid:"Scholarships available", url:"https://michiganross.umich.edu/undergraduate/summer-business-academy", rolling:false },
+  { name:"Michigan Tech: Summer Youth Programs", college:"Michigan Technological University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering","Business Focus","Visual or Performing Arts Focus","Humanities or Liberal Arts Focus"], deadline:"See individual programs", cost:"$1,175 (residential)", aid:"Full Scholarship", url:"https://www.mtu.edu/syp/", rolling:true },
+  { name:"Missouri S&T: ASM Exploring Materials", college:"Missouri University of Science & Technology", grades:["ages 16–18"], areas:["Materials Science","Engineering"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/asmexploringmaterialsinyourworld/", rolling:false },
+  { name:"Missouri S&T: Derivative of Thrills (Math)", college:"Missouri University of Science & Technology", grades:["ages 15–18"], areas:["Mathematics"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/derivativeofthrillssummerinstitute/", rolling:false },
+  { name:"Morgan State: SAAMS (Math & Actuarial)", college:"Morgan State University", grades:["11","12"], areas:["STEM Focus","Computer Science","Mathematics","Actuarial Science"], deadline:"April 30, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.morgan.edu/saams", rolling:false },
+  { name:"NYU: ARISE (Research)", college:"New York University", grades:["11","12"], areas:["STEM Focus","College Readiness"], deadline:"February 20, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/arise", rolling:false },
+  { name:"NYU: CALI (College Admissions)", college:"New York University", grades:["12"], areas:["College Readiness"], deadline:"March 31, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.nyu.edu/admissions/high-school-and-middle-school-programs/high-school-programs/college-admissions-leadership-institute.html", rolling:false },
+  { name:"NYU: CS4CS (Cybersecurity)", college:"New York University", grades:["11","12"], areas:["Cybersecurity","Computer Science"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://engineering.nyu.edu/academics/programs/k12-stem-education/computer-science-cyber-security-cs4cs", rolling:false },
+  { name:"NYU: High School Summer Art Intensive", college:"New York University", grades:["10","11","12"], areas:["Studio and Fine Arts"], deadline:"March 1, 2026", cost:"$4,800+", aid:"Scholarships available", url:"https://steinhardt.nyu.edu/programs/art-education/high-school-programs/high-school-summer-art-intensive-studio-practice", rolling:false },
+  { name:"NYU: ieSoSC (Smart Cities)", college:"New York University", grades:["9","10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/iesosc", rolling:false },
+  { name:"NYU: Urban Journalism Workshop", college:"New York University", grades:["ages 16+"], areas:["Journalism","Writing Focus"], deadline:"March 11, 2026", cost:"$0", aid:"Full Scholarship", url:"https://journalism.nyu.edu/our-work/institute-projects/urban-journalism-workshop/", rolling:false },
+  { name:"Northwestern: College Bridge Program", college:"Northwestern University", grades:["12"], areas:["Interdisciplinary focus","College Credit"], deadline:"April 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://sps.northwestern.edu/pre-college/college-bridge/", rolling:false },
+  { name:"Otis College: Summer of Art", college:"Otis College of Art and Design", grades:["ages 14.5–19"], areas:["College Credit","Studio and Fine Arts"], deadline:"June 23, 2026", cost:"$2,690–$7,315", aid:"Partial Scholarship", url:"https://www.otis.edu/summer-art-online", rolling:true },
+  { name:"Outer Coast: Summer Seminar", college:"Outer Coast", grades:["11","12"], areas:["College Credit","College Readiness","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"Sliding scale", aid:"Scholarships available", url:"https://outercoast.org/outer-coast-programs/the-summer-seminar/", rolling:false },
+  { name:"Princeton: Summer Journalism Program", college:"Princeton University", grades:["12"], areas:["Journalism","Writing Focus","College Readiness"], deadline:"January 26, 2026", cost:"$0", aid:"Full Scholarship", url:"https://psjp.princeton.edu/about-program/program", rolling:false },
+  { name:"SMASH Residential (STEM)", college:"UC Berkeley / U-Michigan / Morehouse / Spelman / Northeastern", grades:["11","12"], areas:["STEM Focus","Computer Science"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.smash.org/programs/#smash-residential", rolling:false },
+  { name:"Smith College: Summer Precollege Programs", college:"Smith College", grades:["9","10","11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Environmental or Sustainability Focus","Visual or Performing Arts Focus","Engineering"], deadline:"May 1, 2026", cost:"$2,795–$4,985", aid:"Scholarships available", url:"https://www.smith.edu/academics/precollege-programs/homepage", rolling:true },
+  { name:"St. John's College: Summer Academy", college:"St. John's College", grades:["11","12","ages 14–18"], areas:["Humanities or Liberal Arts Focus"], deadline:"May 1, 2026", cost:"$1,400", aid:"Full Scholarship", url:"https://www.sjc.edu/summer-academy", rolling:false },
+  { name:"Stanford: SMYSP (Medicine)", college:"Stanford University", grades:["12"], areas:["STEM Focus","Medicine","College Readiness"], deadline:"March 23, 2026", cost:"$0", aid:"Full Scholarship", url:"https://med.stanford.edu/odme/high-school-students/smysp.html", rolling:false },
+  { name:"Summer Science Program (Astrophysics/Biochem)", college:"Multiple Host Universities", grades:["12"], areas:["STEM Focus"], deadline:"February 19, 2026", cost:"$9,800", aid:"Full Scholarship", url:"https://ssp.org/program-overview/", rolling:false },
+  { name:"Telluride Association Summer Seminar (TASS)", college:"Cornell / U of Maryland", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"December 3, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.tellurideassociation.org/our-programs/high-school-students/", rolling:false },
+  { name:"Texas Tech: Anson L. Clark Scholars (Research)", college:"Texas Tech University", grades:["12"], areas:["STEM Focus","Computer Science","Economics"], deadline:"February 16, 2026", cost:"$0 (+$25 fee)", aid:"Full Scholarship", url:"https://www.depts.ttu.edu/honors/academicsandenrichment/affiliatedandhighschool/clarks/index.php", rolling:false },
+  { name:"The Cooper Union: Summer STEM", college:"The Cooper Union", grades:["10","11","12"], areas:["Engineering","Computer Science"], deadline:"March 22, 2026", cost:"$3,150–$5,150", aid:"Scholarships available", url:"https://cooper.edu/engineering/stem/summer", rolling:false },
+  { name:"UChicago: Emerging Rural Leaders 9th", college:"University of Chicago", grades:["10"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-9th/", rolling:false },
+  { name:"UChicago: Emerging Rural Leaders 10th", college:"University of Chicago", grades:["11"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-10th/", rolling:false },
+  { name:"UChicago: Emerging Rural Leaders 11th", college:"University of Chicago", grades:["12"], areas:["College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-11th/", rolling:false },
+  { name:"UChicago: Exploring Frontiers", college:"University of Chicago", grades:["11"], areas:["Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/exploring-frontiers/", rolling:false },
+  { name:"UChicago: Future Intelligence Institute (AI)", college:"University of Chicago", grades:["10","11"], areas:["Artificial Intelligence (AI)","College Readiness","Career Preparation"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/future-intelligence-institute/", rolling:false },
+  { name:"UChicago: Neubauer Adelante Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Hispanic/Latino Communities","Interdisciplinary focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/neubauer-family-adelante-summer-scholars/", rolling:false },
+  { name:"UChicago: Neubauer Phoenix STEM Scholars", college:"University of Chicago", grades:["12"], areas:["STEM Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/programs/neubauer-phoenix-stem-summer-scholars", rolling:false },
+  { name:"UChicago: New Horizons", college:"University of Chicago", grades:["11","12"], areas:["Social Science Interest","Humanities or Liberal Arts Focus","Leadership Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/new-horizons/", rolling:false },
+  { name:"UChicago: Quantum Quickstart", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/quantum-quickstart/", rolling:false },
+  { name:"UChicago: Woodson Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Black/African American Communities","College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/woodson-scholars-program/", rolling:false },
+  { name:"UChicago: Young Innovators Climate & Energy", college:"University of Chicago", grades:["12"], areas:["Environmental or Sustainability Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators-climate-and-energy-program/", rolling:false },
+  { name:"UChicago: Young Innovators Program (YIP)", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators/", rolling:false },
+  { name:"UC Denver: LYNX Arts & Media Camps", college:"University of Colorado Denver", grades:["9","10","11","12"], areas:["Arts & Music"], deadline:"May 15, 2026", cost:"$650–$2,600", aid:"Partial Scholarship", url:"https://artsandmedia.ucdenver.edu/prospective-students/lynx-camps", rolling:true },
+  { name:"University of Delaware: CRSI", college:"University of Delaware", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.udel.edu/apply/undergraduate-admissions/precollege-programs/college-readiness-scholars-institute/", rolling:false },
+  { name:"University of Denver: Access DU", college:"University of Denver", grades:["11","12"], areas:["College Readiness"], deadline:"March 13, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.du.edu/admission-aid/undergraduate/access-du", rolling:false },
+  { name:"U of Illinois: Grainger Engineering Summer Camps", college:"University of Illinois Urbana-Champaign", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (priority March 31)", cost:"$1,500 (residential)", aid:"Full Scholarship", url:"https://wyse.grainger.illinois.edu/summer-programs/summer-camps", rolling:true },
+  { name:"University of Kansas: Summer Venture in Business", college:"University of Kansas", grades:["11","12"], areas:["Business Focus"], deadline:"February 13, 2026", cost:"$50", aid:"Full Scholarship", url:"https://business.ku.edu/undergraduate-programs/summer-venture-business", rolling:false },
+  { name:"Notre Dame: Leadership Seminars", college:"University of Notre Dame", grades:["12"], areas:["Leadership Focus","College Credit"], deadline:"January 21, 2026", cost:"$225", aid:"Scholarships available", url:"https://precollege.nd.edu/leadership-seminars/", rolling:false },
+  { name:"Notre Dame: Summer Scholars", college:"University of Notre Dame", grades:["11","12"], areas:["Interdisciplinary focus","College Credit"], deadline:"February 18, 2026", cost:"$4,900", aid:"Scholarships available", url:"https://precollege.nd.edu/summer-scholars/", rolling:false },
+  { name:"USC: Bovard Scholars", college:"University of Southern California", grades:["12"], areas:["College Readiness","Career Preparation"], deadline:"January 16, 2026", cost:"$0", aid:"Full Scholarship", url:"https://bovardscholars.usc.edu/", rolling:false },
+  { name:"UT Austin: Academy for All", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science","Machine Learning"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/all", rolling:false },
+  { name:"UT Austin: Academy for Women", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/women", rolling:false },
+  { name:"UW–Madison: Accelerated Learning Program (ALP)", college:"University of Wisconsin–Madison", grades:["10","11","12"], areas:["Interdisciplinary focus"], deadline:"May 1, 2026", cost:"$4,750", aid:"Full Scholarship", url:"https://precollege.wisc.edu/accelerated-learning-program/", rolling:true },
+  { name:"University of Wyoming: Summer HSI", college:"University of Wyoming", grades:["11"], areas:["Interdisciplinary focus","College Readiness"], deadline:"February 8, 2026", cost:"$325", aid:"None listed", url:"https://www.uwyo.edu/hsi/", rolling:false },
+  { name:"WashU: Rural Scholars Academy", college:"Washington University in St. Louis", grades:["11"], areas:["College Readiness","Leadership Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://admissions.washu.edu/heartland-initiative/heartland-summer-program/", rolling:false },
+  { name:"Yale: Young Global Scholars (YYGS)", college:"Yale University", grades:["11","12"], areas:["Interdisciplinary focus"], deadline:"January 7, 2026", cost:"$7,000", aid:"Full Scholarship", url:"https://globalscholars.yale.edu/", rolling:false },
+
+  // ── NEW PROGRAMS FROM DEEP DIVE ──
+
+  // RESIDENTIAL SUMMER PROGRAMS
+  { name:"Cornell: Precollege Studies Summer Residential", college:"Cornell University", grades:["10","11","12"], areas:["STEM Focus","Business Focus","Humanities or Liberal Arts Focus","Engineering","Visual or Performing Arts Focus","Medicine"], deadline:"May 19, 2026", cost:"~$5,040/course + residential fees", aid:"Scholarships available", url:"https://sce.cornell.edu/precollege/residential", rolling:true },
+  { name:"Georgetown: Summer College & College Prep", college:"Georgetown University", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Business Focus","STEM Focus","Medicine","Political Focus"], deadline:"April 15, 2026", cost:"$3,725–$12,161", aid:"Scholarships available", url:"https://summer.georgetown.edu/", rolling:true },
+  { name:"Vanderbilt Summer Academy (VSA)", college:"Vanderbilt University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Visual or Performing Arts Focus"], deadline:"Rolling (until full)", cost:"$2,000–$3,000", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/for-students/vsa/", rolling:true },
+  { name:"Vanderbilt Summer Institutes (VSI)", college:"Vanderbilt University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","College Readiness"], deadline:"Rolling (until full)", cost:"$5,750/session", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/vsi/", rolling:true },
+  { name:"Tufts University Pre-College Programs", college:"Tufts University", grades:["9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","College Readiness"], deadline:"Rolling — various sessions", cost:"$3,000–$8,000+", aid:"Scholarships available", url:"https://universitycollege.tufts.edu/pre-college/academics/high-school-summer-programs", rolling:true },
+  { name:"Rice University Pre-College Program", college:"Rice University", grades:["9","10","11","12"], areas:["STEM Focus","Engineering","Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"Rolling", cost:"Varies by course", aid:"Scholarships available", url:"https://precollege.rice.edu/", rolling:true },
+  { name:"Johns Hopkins: Engineering Innovation (EI)", college:"Johns Hopkins University", grades:["10","11","12"], areas:["Engineering","STEM Focus"], deadline:"Rolling (through ~May 17, 2026)", cost:"~$3,575 + residential fees", aid:"Scholarships available", url:"https://ei.jhu.edu/costs-and-financial-aid/scholarships/", rolling:true },
+  { name:"Emory University Pre-College Program", college:"Emory University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","Medicine","Social Science Interest"], deadline:"May 1, 2026", cost:"$3,000–$5,500/session", aid:"Scholarships available", url:"https://precollege.emory.edu/", rolling:true },
+  { name:"Howard University: Pre-Business Program (PBP)", college:"Howard University", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Computer Science","Actuarial Science"], deadline:"April 3, 2026", cost:"$2,000 (Accounting track FREE)", aid:"Full Scholarship", url:"https://business.howard.edu/undergraduate/student-life/high-school-summer-enrichment-pre-business-program", rolling:false },
+  { name:"Spelman College: College Prep Institute (CPI)", college:"Spelman College", grades:["9","10"], areas:["College Readiness","Leadership Focus"], deadline:"Rolling", cost:"$2,900–$3,150", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/college-prep-institute.html", rolling:true },
+  { name:"Spelman College: Early College Program (ECP)", college:"Spelman College", grades:["11"], areas:["College Credit","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"Rolling", cost:"$4,400–$4,500", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/early-college-program.html", rolling:true },
+  { name:"AUC Art History & Curatorial Studies Early College", college:"Spelman College / AUC Art Collective", grades:["11","12"], areas:["Visual or Performing Arts Focus","African American Studies"], deadline:"Rolling (check website)", cost:"$0", aid:"Full Scholarship", url:"https://aucartcollective.org/programs-courses/early-college-program/", rolling:true },
+  { name:"Hampton University: Pre-College Summer Program", college:"Hampton University", grades:["11","12"], areas:["College Readiness","STEM Focus"], deadline:"Rolling", cost:"Contact program", aid:"Scholarships available", url:"https://home.hamptonu.edu/academics/summer/precollege/", rolling:true },
+  { name:"Xavier University of Louisiana: SOAR X", college:"Xavier University of Louisiana", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus"], deadline:"April 27, 2026", cost:"Includes housing & meals", aid:"Scholarships available", url:"https://www.xula.edu/pre-college-programs/precollege-soarx.html", rolling:false },
+  { name:"TMCF SOAR (Thurgood Marshall College Fund)", college:"Multiple HBCU Campuses", grades:["11"], areas:["College Readiness","Leadership Focus","Career Preparation"], deadline:"Rolling (varies by campus)", cost:"$0", aid:"Full Scholarship", url:"https://tmcf.org/programs/tmcf-soar/", rolling:true },
+  { name:"Barnard College Pre-College Programs", college:"Barnard College", grades:["10","11","12"], areas:["STEM Focus","Writing Focus","Humanities or Liberal Arts Focus","Entrepreneurship","Environmental or Sustainability Focus"], deadline:"April 15, 2026", cost:"$7,000–$9,000+", aid:"Scholarships available", url:"https://precollege.barnard.edu/summerprograms", rolling:true },
+  { name:"Purdue University: Summer College for High School Students", college:"Purdue University", grades:["11","12"], areas:["Engineering","STEM Focus","Business Focus","Medicine"], deadline:"April 1, 2026", cost:"~$500+/credit hour", aid:"Scholarships available", url:"https://www.purdue.edu/summer-high-school/", rolling:false },
+  { name:"Indiana University: Holland Summer Enrichment in Biology", college:"Indiana University Bloomington", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"April 10, 2026", cost:"Registration fee (TBD)", aid:"Full Scholarship", url:"https://biology.indiana.edu/about/outreach/k-12-students/holland-summer-science-programs/holland-sep.html", rolling:false },
+  { name:"University of Iowa: Tippie Gateway Summer Program", college:"University of Iowa", grades:["12"], areas:["Business Focus","Entrepreneurship","Leadership Focus","College Readiness"], deadline:"April 17, 2026", cost:"$0", aid:"Full Scholarship", url:"https://tippie.uiowa.edu/undergraduate/admissions/high-school-students/gateway-summer-program", rolling:false },
+  { name:"University of Pittsburgh: Experiencing Architecture", college:"University of Pittsburgh", grades:["9","10","11","12"], areas:["Architecture","Visual or Performing Arts Focus"], deadline:"April 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.arch.pitt.edu/experiencing-architecture-program", rolling:false },
+  { name:"UNC Chapel Hill: Project Uplift", college:"University of North Carolina at Chapel Hill", grades:["12"], areas:["College Readiness"], deadline:"~April 5, 2026", cost:"$50 (waivers available)", aid:"Full Scholarship", url:"https://cheop.unc.edu/pre-college-programs/project-uplift-and-uplift-plus/", rolling:false },
+  { name:"Ohio State: Arts & Sciences Summer Exploration", college:"The Ohio State University", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"May 1, 2026", cost:"$550/course", aid:"Scholarships available", url:"https://artsandsciences.osu.edu/future-students/arts-and-sciences-summer-exploration-program", rolling:false },
+  { name:"Rutgers: Pre-College Summer Academies", college:"Rutgers University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","College Readiness","Engineering","Political Focus"], deadline:"Early May 2026", cost:"Varies", aid:"Scholarships available", url:"https://precollegesummer.rutgers.edu/academies", rolling:false },
+  { name:"Michigan Math & Science Scholars (MMSS)", college:"University of Michigan", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"Rolling (until full)", cost:"$1,300 + $1,000 residential/session", aid:"Scholarships available", url:"https://sites.lsa.umich.edu/mmss/", rolling:true },
+  { name:"Oklahoma STEM Summer Academies", college:"Various Oklahoma Colleges", grades:["8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (varies by academy)", cost:"$0", aid:"Full Scholarship", url:"https://okhighered.org/summer-academies/", rolling:true },
+  { name:"LSU Pre-College Summer Programs", college:"Louisiana State University", grades:["9","10","11","12"], areas:["Engineering","STEM Focus","Visual or Performing Arts Focus"], deadline:"Rolling", cost:"Varies by program", aid:"Scholarships available", url:"https://precollege.lsu.edu/", rolling:true },
+  { name:"SUNY New Paltz: Summer Honors Program", college:"SUNY New Paltz", grades:["11"], areas:["College Readiness","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus"], deadline:"Rolling (notifications mid-May)", cost:"$300 (board FREE)", aid:"Full Scholarship", url:"https://www.newpaltz.edu/summer-honors/", rolling:true },
+  { name:"MICA Pre-College Summer Intensive", college:"Maryland Institute College of Art", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","College Credit"], deadline:"April 30, 2026", cost:"$2,725–$3,850", aid:"Scholarships available", url:"https://www.mica.edu/academics/youth-and-teen-programs/programs-for-teens/precollege/", rolling:false },
+  { name:"SCAD Summer Seminars", college:"Savannah College of Art and Design", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"April 13, 2026 (scholarship)", cost:"$100 registration + program fee", aid:"Scholarships available", url:"https://www.scad.edu/academics/pre-college-programs/scad-summer-seminars", rolling:true },
+  { name:"SAIC Early College Summer Institute", college:"School of the Art Institute of Chicago", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$1,908/week + housing", aid:"Scholarships available", url:"https://www.saic.edu/high-school-programs/early-college-program-summer-institute", rolling:true },
+  { name:"Berklee College of Music: Aspire Five-Week Intensive", college:"Berklee College of Music", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"June 1, 2026", cost:"$5,430 tuition + $4,200 housing (optional)", aid:"Scholarships available", url:"https://summer.berklee.edu/programs/aspire-five-week-music-performance-intensive", rolling:false },
+  { name:"Interlochen Arts Camp: High School Division", college:"Interlochen Center for the Arts", grades:["9","10","11","12"], areas:["Visual or Performing Arts Focus","Writing Focus","Film & Entertainment"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$2,050–$10,350", aid:"Scholarships available", url:"https://www.interlochen.org/summer-camp/admission/tuition-and-financial-aid", rolling:true },
+  { name:"Pratt Institute: PreCollege Summer Intensive", college:"Pratt Institute", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Writing Focus"], deadline:"Rolling (accepting if space available)", cost:"~$8,000+ residential", aid:"Scholarships available", url:"https://www.pratt.edu/continuing-and-professional-studies/precollege/summer-precollege/", rolling:true },
+  { name:"RISD Pre-College Program", college:"Rhode Island School of Design", grades:["10","11"], areas:["Visual or Performing Arts Focus"], deadline:"Rolling", cost:"$9,595–$12,495", aid:"Scholarships available", url:"https://precollege.risd.edu/", rolling:true },
+  { name:"Parsons/New School: Summer Intensive Studies", college:"Parsons School of Design / The New School", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Entrepreneurship"], deadline:"June 1, 2026 (commuter)", cost:"$5,610 tuition + fees", aid:"Scholarships available", url:"https://cpe.newschool.edu/youth-and-pre-college/parsons-new-york-summer-intensive-studies/", rolling:true },
+  { name:"Oberlin Conservatory: Baroque Performance Institute", college:"Oberlin College and Conservatory", grades:["10","11","12"], areas:["Visual or Performing Arts Focus"], deadline:"May 1, 2026", cost:"~$1,900", aid:"Scholarships available", url:"https://www.oberlin.edu/summer-programs/bpi", rolling:false },
+  { name:"Wake Forest: Summer Immersion Program", college:"Wake Forest University", grades:["9","10","11","12"], areas:["Medicine","Entrepreneurship","Computer Science","Business Focus","Political Focus","Leadership Focus"], deadline:"Rolling (some institutes waitlisted)", cost:"$3,500/week", aid:"Scholarships available", url:"https://immersion.summer.wfu.edu/", rolling:true },
+  { name:"Great Books Summer Program (at Amherst)", college:"Great Books Summer Program / Amherst College", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"Rolling", cost:"$1,500–$2,500/week", aid:"Scholarships available", url:"https://greatbookssummer.com/campus/amherst/", rolling:true },
+  { name:"Babson College: Blank School Summer Program", college:"Babson College", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Film & Entertainment"], deadline:"Rolling (check website)", cost:"Varies", aid:"Scholarships available", url:"https://www.babson.edu/summer-at-babson/high-school-learners/the-arthur-m-blank-school-summer-program/", rolling:true },
+  { name:"Georgia Tech: Summer Institute", college:"Georgia Institute of Technology", grades:["11"], areas:["STEM Focus","College Readiness"], deadline:"Check website (TBD)", cost:"$0", aid:"Full Scholarship", url:"https://expandedlearning.ceismc.gatech.edu/summer-institute", rolling:false },
+
+  // VIRTUAL / HYBRID PROGRAMS
+  { name:"Girls Who Code: Pathways Program", college:"Girls Who Code", grades:["9","10","11"], areas:["Computer Science","Artificial Intelligence (AI)"], deadline:"June 14, 2026", cost:"$0", aid:"Full Scholarship", url:"https://girlswhocode.com/programs/pathways", rolling:false, type:"Virtual" },
+  { name:"Lumiere Research Scholar Program", college:"Lumiere Education", grades:["8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Computer Science"], deadline:"Rolling (four cohorts/year)", cost:"$2,990–$8,900", aid:"Scholarships available", url:"https://www.lumiere-education.com/", rolling:true, type:"Virtual" },
+  { name:"Wharton Global Youth: Pre-Baccalaureate (Online)", college:"University of Pennsylvania – Wharton", grades:["11","12"], areas:["Business Focus","Entrepreneurship"], deadline:"May 6, 2026 (Summer 2)", cost:"~$2,000+/course", aid:"Full Scholarship", url:"https://globalyouth.wharton.upenn.edu/pre-baccalaureate-program/", rolling:false, type:"Virtual" },
+  { name:"University of Iowa: Young Writers' Studio (Online)", college:"University of Iowa", grades:["9","10","11","12"], areas:["Writing Focus"], deadline:"April 14, 2026", cost:"$475/course", aid:"Scholarships available", url:"https://iyws.program.uiowa.edu/how-to-apply/online-courses", rolling:false, type:"Virtual" },
+  { name:"Kenyon Review: Young Writers Online Workshop", college:"Kenyon College / The Kenyon Review", grades:["11","12"], areas:["Writing Focus"], deadline:"April 13, 2026", cost:"$995", aid:"Scholarships available", url:"https://kenyonreview.org/event/young-writers-summer-online-workshops/", rolling:false, type:"Virtual" },
+  { name:"NSLI-Y Virtual Program (Critical Languages)", college:"U.S. Department of State / American Councils", grades:["9","10","11","12"], areas:["Language","Humanities or Liberal Arts Focus"], deadline:"~May 2026 (opens)", cost:"$0", aid:"Full Scholarship", url:"https://www.nsliforyouth.org/how-to-apply/apply/", rolling:false, type:"Virtual" },
+  { name:"UVA Northern Virginia: Inspire Summer", college:"University of Virginia Northern Virginia", grades:["10","11","12"], areas:["Business Focus","Engineering","Writing Focus"], deadline:"Rolling (within 10 business days of submission)", cost:"Varies", aid:"Scholarships available", url:"https://northern.virginia.edu/programs/internal/inspire/", rolling:true, type:"Hybrid" }
+];
+
+// ── Deadline parsing ──
+function parseDeadline(d) {
+  const months = {January:0,February:1,March:2,April:3,May:4,June:5,July:6,August:7,September:8,October:9,November:10,December:11};
+  const m = d.match(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d+),\s*(\d{4})/);
+  if (m) return new Date(+m[3], months[m[1]], +m[2]);
+  return null;
+}
+
+function deadlineStatus(p) {
+  if (p.rolling) return 'rolling';
+  const dt = parseDeadline(p.deadline);
+  if (!dt) return 'unknown';
+  return dt < TODAY ? 'closed' : 'open';
+}
+
+// ── Area classification ──
+function areaClass(area) {
+  const a = area.toLowerCase();
+  if (a.includes('stem') || a.includes('science') || a.includes('math') || a.includes('engineer') || a.includes('computer') || a.includes('ai') || a.includes('cyber') || a.includes('machine') || a.includes('actuarial') || a.includes('quantum') || a.includes('materials')) return 'stem';
+  if (a.includes('art') || a.includes('film') || a.includes('media') || a.includes('music') || a.includes('studio') || a.includes('design') || a.includes('journal') || a.includes('writing')) return 'arts';
+  if (a.includes('business') || a.includes('entrepreneur') || a.includes('economics')) return 'business';
+  if (a.includes('humanities') || a.includes('liberal') || a.includes('social') || a.includes('political') || a.includes('history') || a.includes('interdisciplinary')) return 'humanities';
+  if (a.includes('college') || a.includes('leadership') || a.includes('career') || a.includes('readiness')) return 'college';
+  return '';
+}
+
+// ── Grade label ──
+function gradeLabel(g) {
+  const map = {'7':'7th','8':'8th','9':'9th','10':'10th','11':'11th','12':'12th'};
+  if (map[g]) return map[g];
+  return g;
+}
+
+function gradeClass(g) {
+  const c = {'7':'grade-other','8':'grade-8','9':'grade-9','10':'grade-10','11':'grade-11','12':'grade-12'};
+  return c[g] || 'grade-other';
+}
+
+// ── Render ──
+let sortCol = 3, sortDir = 1;
+let currentView = 'table'; // 'table' or 'card'
+
+function getDeadlineInfo(p) {
+  const status = deadlineStatus(p);
+  const dt = parseDeadline(p.deadline);
+  const daysLeft = dt ? Math.ceil((dt - TODAY) / 86400000) : null;
+  let deadlineClass = '', badgeClass = '', badgeText = '';
+  if (status === 'rolling') { deadlineClass = 'deadline-open'; badgeClass = 'badge-rolling'; badgeText = 'Rolling'; }
+  else if (status === 'closed') { deadlineClass = 'deadline-passed'; badgeClass = 'badge-closed'; badgeText = 'Closed'; }
+  else if (daysLeft !== null && daysLeft <= 21) { deadlineClass = 'deadline-soon'; badgeClass = 'badge-soon'; badgeText = `${daysLeft}d left`; }
+  else { deadlineClass = 'deadline-open'; badgeClass = 'badge-open'; badgeText = 'Open'; }
+  return { deadlineClass, badgeClass, badgeText };
+}
+
+function renderAll(data) {
+  document.getElementById('countNum').textContent = data.length;
+  renderTableView(data);
+  renderCardView(data);
+}
+
+function renderTableView(data) {
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+  const table = document.getElementById('programTable');
+
+  if (!data.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    table.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  table.style.display = '';
+
+  tbody.innerHTML = data.map(p => {
+    const { deadlineClass, badgeClass, badgeText } = getDeadlineInfo(p);
+
+    const gradeTags = p.grades.map(g =>
+      `<span class="grade-tag ${gradeClass(g)}">${gradeLabel(g)}</span>`
+    ).join('');
+
+    const areaTags = p.areas.slice(0,4).map(a =>
+      `<span class="area-tag ${areaClass(a)}">${a}</span>`
+    ).join('') + (p.areas.length > 4 ? `<span class="area-tag">+${p.areas.length-4}</span>` : '');
+
+    const isFree = p.cost === '$0' || p.cost.startsWith('$0');
+    const hasFullAid = p.aid.toLowerCase().includes('full');
+    const hasPartialAid = p.aid.toLowerCase().includes('partial') || p.aid.toLowerCase().includes('available');
+    let aidTag = '';
+    if (hasFullAid) aidTag = `<span class="aid-tag">✓ Full scholarship avail.</span>`;
+    else if (hasPartialAid) aidTag = `<span class="aid-tag partial">~ Partial aid available</span>`;
+    else aidTag = `<span class="aid-tag none">No aid listed</span>`;
+
+    const typeBadge = p.type === 'Virtual' ? '<span class="type-badge type-virtual">Virtual</span>' :
+                      p.type === 'Hybrid' ? '<span class="type-badge type-hybrid">Hybrid</span>' : '';
+
+    return `<tr>
+      <td>
+        <div class="program-name">${p.name}${typeBadge}</div>
+        <div class="program-college">${p.college}</div>
+      </td>
+      <td><div class="grade-tags">${gradeTags}</div></td>
+      <td><div class="area-tags">${areaTags}</div></td>
+      <td class="deadline-cell">
+        <div class="deadline-date ${deadlineClass}">${p.deadline}</div>
+        <span class="deadline-badge ${badgeClass}">${badgeText}</span>
+      </td>
+      <td class="cost-cell">
+        <span class="${isFree ? 'cost-free' : 'cost-paid'}">${p.cost}</span>
+        ${aidTag}
+      </td>
+      <td><a class="apply-btn" href="${p.url}" target="_blank" rel="noopener">Apply →</a></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderCardView(data) {
+  const wrap = document.getElementById('cardWrap');
+  const emptyCard = document.getElementById('emptyStateCard');
+
+  if (!data.length) {
+    emptyCard.style.display = 'block';
+    wrap.innerHTML = '';
+    wrap.appendChild(emptyCard);
+    return;
+  }
+  emptyCard.style.display = 'none';
+
+  const cards = data.map(p => {
+    const { deadlineClass, badgeClass, badgeText } = getDeadlineInfo(p);
+
+    const gradeTags = p.grades.map(g =>
+      `<span class="grade-tag ${gradeClass(g)}">${gradeLabel(g)}</span>`
+    ).join('');
+
+    const areaTags = p.areas.slice(0,3).map(a =>
+      `<span class="area-tag ${areaClass(a)}">${a}</span>`
+    ).join('') + (p.areas.length > 3 ? `<span class="area-tag">+${p.areas.length-3}</span>` : '');
+
+    const isFree = p.cost === '$0' || p.cost.startsWith('$0');
+    const hasFullAid = p.aid.toLowerCase().includes('full');
+    const hasPartialAid = p.aid.toLowerCase().includes('partial') || p.aid.toLowerCase().includes('available');
+    let aidClass = 'none', aidText = 'No aid listed';
+    if (hasFullAid) { aidClass = 'full'; aidText = '✓ Full scholarship available'; }
+    else if (hasPartialAid) { aidClass = 'partial'; aidText = '~ Partial aid available'; }
+
+    const typeBadge = p.type === 'Virtual' ? '<span class="type-badge type-virtual">Virtual</span>' :
+                      p.type === 'Hybrid' ? '<span class="type-badge type-hybrid">Hybrid</span>' : '';
+
+    return `<div class="card">
+      <div class="card-header">
+        <div class="card-name">${p.name}${typeBadge}</div>
+        <div class="card-college">${p.college}</div>
+      </div>
+
+      <div class="card-deadline-row">
+        <span class="card-deadline-label">Deadline</span>
+        <span class="card-deadline-val">
+          <span class="${deadlineClass}" style="font-size:.82rem">${p.deadline}</span>
+          <span class="deadline-badge ${badgeClass}">${badgeText}</span>
+        </span>
+      </div>
+
+      <div class="card-meta">
+        <div class="card-meta-item">
+          <span class="card-meta-label">Cost</span>
+          <span class="card-meta-val ${isFree ? 'free' : ''}">${p.cost}</span>
+          <span class="card-aid ${aidClass}">${aidText}</span>
+        </div>
+        <div class="card-meta-item">
+          <span class="card-meta-label">Grade Levels</span>
+          <div class="card-grades">${gradeTags}</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-meta-label" style="margin-bottom:5px">Areas of Interest</div>
+        <div class="card-areas">${areaTags}</div>
+      </div>
+
+      <div class="card-footer">
+        <a class="card-apply" href="${p.url}" target="_blank" rel="noopener">Apply Now →</a>
+      </div>
+    </div>`;
+  });
+
+  wrap.innerHTML = cards.join('');
+  wrap.appendChild(emptyCard);
+}
+
+// ── Filter + search ──
+function getFiltered() {
+  const type = document.getElementById('typeFilter').value;
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const grade = document.getElementById('gradeFilter').value;
+  const area = document.getElementById('areaFilter').value.toLowerCase();
+  const aid = document.getElementById('aidFilter').value;
+  const status = document.getElementById('statusFilter').value;
+
+  return programs.filter(p => {
+    if (q) {
+      const text = (p.name + p.college + p.areas.join(' ')).toLowerCase();
+      if (!text.includes(q)) return false;
+    }
+    if (type && p.type && !p.type.includes(type)) return false;
+    if (grade) {
+      const hasGrade = p.grades.some(g => g === grade);
+      const hasAge = p.grades.some(g => g.startsWith('ages'));
+      if (!hasGrade && !hasAge) return false;
+    }
+    if (area) {
+      const areaLower = p.areas.map(a => a.toLowerCase()).join(' ');
+      const areaMap = {
+        'stem': ['stem','science','math','engineer','computer','ai','cyber','machine','actuarial','quantum','materials'],
+        'computer science': ['computer','cyber','machine learning','coding'],
+        'artificial intelligence': ['artificial intelligence','ai'],
+        'mathematics': ['mathematics','math'],
+        'engineering': ['engineer','construction','architecture'],
+        'business': ['business','entrepreneur','economics'],
+        'arts': ['art','film','media','music','studio','design','journal','writing'],
+        'humanities': ['humanities','liberal','social','political','history'],
+        'college readiness': ['college readiness','college credit'],
+        'leadership': ['leadership'],
+        'environmental': ['environment','sustainability','climate','energy'],
+        'medicine': ['medicine','health','medical'],
+        'writing': ['writing','journalism'],
+        'social justice': ['social justice','activism','civic']
+      };
+      const keys = areaMap[area] || [area];
+      if (!keys.some(k => areaLower.includes(k))) return false;
+    }
+    if (aid) {
+      const aidL = p.aid.toLowerCase();
+      const costL = p.cost.toLowerCase();
+      if (aid === 'free' && !(p.cost === '$0' || aidL.includes('full'))) return false;
+      if (aid === 'partial' && !(aidL.includes('partial') || aidL.includes('available'))) return false;
+      if (aid === 'paid' && (p.cost === '$0' || aidL.includes('full') || aidL.includes('partial') || aidL.includes('available'))) return false;
+    }
+    if (status) {
+      const s = deadlineStatus(p);
+      if (status === 'open' && s !== 'open') return false;
+      if (status === 'closed' && s !== 'closed') return false;
+      if (status === 'rolling' && s !== 'rolling') return false;
+    }
+    return true;
+  });
+}
+
+function getSorted(data) {
+  return [...data].sort((a, b) => {
+    let va, vb;
+    if (sortCol === 0) { va = a.name; vb = b.name; }
+    else if (sortCol === 1) { va = a.grades[0]; vb = b.grades[0]; }
+    else if (sortCol === 2) { va = a.areas[0] || ''; vb = b.areas[0] || ''; }
+    else if (sortCol === 3) {
+      va = parseDeadline(a.deadline) || new Date('2099-01-01');
+      vb = parseDeadline(b.deadline) || new Date('2099-01-01');
+      return sortDir * (va - vb);
+    }
+    else if (sortCol === 4) {
+      va = parseFloat((a.cost || '0').replace(/[^0-9.]/g,'')) || 0;
+      vb = parseFloat((b.cost || '0').replace(/[^0-9.]/g,'')) || 0;
+      return sortDir * (va - vb);
+    }
+    return sortDir * va.localeCompare(vb);
+  });
+}
+
+function refresh() {
+  renderAll(getSorted(getFiltered()));
+  renderActiveFilters();
+}
+
+// ── View toggle ──
+function setView(v) {
+  currentView = v;
+  const tableWrap = document.getElementById('tableWrap');
+  const cardWrap = document.getElementById('cardWrap');
+  const btnTable = document.getElementById('btnTable');
+  const btnCard = document.getElementById('btnCard');
+  if (v === 'table') {
+    tableWrap.classList.add('active');
+    cardWrap.classList.remove('active');
+    btnTable.classList.add('active');
+    btnCard.classList.remove('active');
+  } else {
+    tableWrap.classList.remove('active');
+    cardWrap.classList.add('active');
+    btnCard.classList.add('active');
+    btnTable.classList.remove('active');
+  }
+}
+
+document.getElementById('btnTable').addEventListener('click', () => setView('table'));
+document.getElementById('btnCard').addEventListener('click', () => setView('card'));
+
+// Auto-switch to cards on mobile
+if (window.innerWidth <= 680) setView('card');
+
+// ── Active filter chips ──
+function renderActiveFilters() {
+  const box = document.getElementById('activeFilters');
+  const chips = [];
+  const q = document.getElementById('searchInput').value;
+  const grade = document.getElementById('gradeFilter');
+  const area = document.getElementById('areaFilter');
+  const aid = document.getElementById('aidFilter');
+  const status = document.getElementById('statusFilter');
+  if (q) chips.push({label:`"${q}"`, clear:()=>{ document.getElementById('searchInput').value=''; refresh(); }});
+  if (grade.value) chips.push({label:grade.options[grade.selectedIndex].text, clear:()=>{ grade.value=''; refresh(); }});
+  if (area.value) chips.push({label:area.options[area.selectedIndex].text, clear:()=>{ area.value=''; refresh(); }});
+  if (aid.value) chips.push({label:aid.options[aid.selectedIndex].text, clear:()=>{ aid.value=''; refresh(); }});
+  const typeEl = document.getElementById('typeFilter');
+  if (typeEl.value) chips.push({label:typeEl.options[typeEl.selectedIndex].text, clear:()=>{ typeEl.value=''; refresh(); }});
+  if (status.value) chips.push({label:status.options[status.selectedIndex].text, clear:()=>{ status.value=''; refresh(); }});
+
+  if (chips.length) {
+    box.classList.add('visible');
+    box.innerHTML = '<span style="font-size:.78rem;color:var(--muted);font-weight:500;padding-top:2px;">Filters:</span>' +
+      chips.map((c,i) => `<span class="filter-chip">${c.label}<button id="chip${i}">×</button></span>`).join('');
+    chips.forEach((c,i) => { document.getElementById(`chip${i}`).onclick = c.clear; });
+  } else {
+    box.classList.remove('visible');
+    box.innerHTML = '';
+  }
+}
+
+// ── Events ──
+document.getElementById('typeFilter').addEventListener('change', refresh);
+document.getElementById('searchInput').addEventListener('input', refresh);
+document.getElementById('gradeFilter').addEventListener('change', refresh);
+document.getElementById('areaFilter').addEventListener('change', refresh);
+document.getElementById('aidFilter').addEventListener('change', refresh);
+document.getElementById('statusFilter').addEventListener('change', refresh);
+document.getElementById('clearBtn').addEventListener('click', () => {
+  document.getElementById('searchInput').value = '';
+  ['gradeFilter','areaFilter','aidFilter','statusFilter','typeFilter'].forEach(id => document.getElementById(id).value = '');
+  refresh();
+});
+
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = +th.dataset.col;
+    if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+    document.querySelectorAll('th').forEach(t => { t.classList.remove('sorted'); const si = t.querySelector('.sort-icon'); if(si) si.textContent='↕'; });
+    th.classList.add('sorted');
+    const si = th.querySelector('.sort-icon');
+    if (si) si.textContent = sortDir === 1 ? '↑' : '↓';
+    refresh();
+  });
+});
+
+// ── Init ──
+// Remove programs with passed deadlines
+for (let i = programs.length - 1; i >= 0; i--) {
+  if (deadlineStatus(programs[i]) === 'closed') programs.splice(i, 1);
+}
+refresh();
+</script>
+</body>
+</html>
