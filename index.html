@@ -141,60 +141,6 @@
   }
   .btn-clear:hover { background: var(--tag-bg); border-color: var(--muted); color: var(--text); }
 
-  /* ── TABLE WRAPPER ── */
-  .table-wrap {
-    padding: 20px 24px 40px;
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: var(--surface);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,.07), 0 0 0 1px var(--border);
-    font-size: .85rem;
-  }
-
-  thead {
-    background: #f5f1eb;
-    position: sticky;
-    top: 0;
-  }
-
-  th {
-    padding: 13px 14px;
-    text-align: left;
-    font-size: .72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .7px;
-    color: var(--muted);
-    border-bottom: 1.5px solid var(--border);
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    transition: color .15s;
-  }
-  th:hover { color: var(--accent); }
-  th .sort-icon { display: inline-block; margin-left: 4px; opacity: .4; font-size: .65rem; }
-  th.sorted { color: var(--accent); }
-  th.sorted .sort-icon { opacity: 1; }
-
-  tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background .12s;
-  }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: #faf8f5; }
-
-  td {
-    padding: 14px 14px;
-    vertical-align: top;
-    line-height: 1.45;
-  }
 
   .type-badge {
     display: inline-block;
@@ -210,21 +156,15 @@
   .type-virtual { background: #e8ecff; color: #2a3b9e; }
   .type-hybrid { background: #f0eaff; color: #6b30b0; }
 
-  /* program name */
-  .program-name {
-    font-weight: 600;
-    font-size: .88rem;
-    color: var(--text);
-    margin-bottom: 3px;
-  }
-  .program-college {
+  /* ── STATIC DESCRIPTION ── */
+  .program-desc {
     font-size: .78rem;
     color: var(--muted);
-    font-weight: 400;
+    line-height: 1.55;
+    margin-top: 5px;
   }
 
   /* grade tags */
-  .grade-tags { display: flex; flex-wrap: wrap; gap: 4px; }
   .grade-tag {
     display: inline-block;
     font-size: .7rem;
@@ -240,8 +180,7 @@
   .grade-12 { background: #fde8e8; color: #b52a2a; }
   .grade-other { background: var(--tag-bg); color: var(--muted); }
 
-  /* deadline */
-  .deadline-cell { white-space: nowrap; }
+  /* deadline badges */
   .deadline-date { font-weight: 600; font-size: .85rem; }
   .deadline-passed { color: var(--accent2); }
   .deadline-soon { color: #c27b00; }
@@ -261,22 +200,7 @@
   .badge-soon { background: #fef3dc; color: #8a5c00; }
   .badge-rolling { background: #f0eaff; color: #6b30b0; }
 
-  /* cost */
-  .cost-cell { white-space: nowrap; }
-  .cost-free { color: var(--accent); font-weight: 700; }
-  .cost-paid { font-weight: 500; }
-  .aid-tag {
-    display: block;
-    font-size: .7rem;
-    color: var(--accent);
-    font-weight: 500;
-    margin-top: 2px;
-  }
-  .aid-tag.partial { color: var(--gold); }
-  .aid-tag.none { color: var(--muted); }
-
-  /* areas */
-  .area-tags { display: flex; flex-wrap: wrap; gap: 4px; max-width: 200px; }
+  /* area tags */
   .area-tag {
     display: inline-block;
     font-size: .67rem;
@@ -292,20 +216,6 @@
   .area-tag.business { background: #fef3dc; color: #8a5c00; }
   .area-tag.humanities { background: #e8ecff; color: #2a3b9e; }
   .area-tag.college { background: var(--accent-light); color: var(--accent); }
-  /* apply link */
-  .apply-btn {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: .78rem;
-    font-weight: 600;
-    white-space: nowrap;
-    transition: background .15s, transform .1s;
-  }
-  .apply-btn:hover { background: #c40e4f; transform: translateY(-1px); }
 
   /* empty state */
   .empty-state {
@@ -348,44 +258,13 @@
   }
   .filter-chip button:hover { opacity: 1; }
 
-  /* ── VIEW TOGGLE ── */
-  .view-toggle {
-    display: flex;
-    gap: 4px;
-    background: var(--tag-bg);
-    border-radius: 8px;
-    padding: 3px;
-  }
-  .view-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 11px;
-    border: none;
-    border-radius: 6px;
-    font-family: 'Lato', sans-serif;
-    font-size: .78rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: transparent;
-    color: var(--muted);
-    transition: all .15s;
-  }
-  .view-btn.active {
-    background: var(--surface);
-    color: var(--accent);
-    box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  }
-  .view-btn svg { flex-shrink: 0; }
-
   /* ── CARD GRID ── */
   .card-wrap {
-    display: none;
+    display: grid;
     padding: 16px 20px 40px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 14px;
   }
-  .card-wrap.active { display: grid; }
 
   .card {
     background: var(--surface);
@@ -503,17 +382,7 @@
     select { flex: 1 1 calc(50% - 4px); min-width: 0; font-size: .8rem; }
     .btn-clear { flex: 0 0 auto; }
     .count-badge { margin-left: 0; }
-    .view-toggle { margin-left: auto; }
-    .table-wrap { display: none !important; }
     .card-wrap { padding: 12px 12px 40px; grid-template-columns: 1fr; }
-    .card-wrap.active { display: grid; }
-    /* Force card view on mobile regardless of toggle */
-    .card-wrap { display: grid !important; }
-  }
-
-  @media (min-width: 681px) {
-    .table-wrap.active { display: block; }
-    .table-wrap:not(.active) { display: none; }
   }
 </style>
 </head>
@@ -580,41 +449,10 @@
 
   <button class="btn-clear" id="clearBtn">Clear All</button>
 
-  <div class="view-toggle" id="viewToggle">
-    <button class="view-btn active" id="btnTable" title="Table view">
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="3" rx="1" fill="currentColor"/><rect x="8" y="1" width="5" height="3" rx="1" fill="currentColor"/><rect x="1" y="6" width="5" height="3" rx="1" fill="currentColor"/><rect x="8" y="6" width="5" height="3" rx="1" fill="currentColor"/><rect x="1" y="11" width="5" height="2" rx="1" fill="currentColor"/><rect x="8" y="11" width="5" height="2" rx="1" fill="currentColor"/></svg>
-      Table
-    </button>
-    <button class="view-btn" id="btnCard" title="Card view">
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="currentColor"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="currentColor"/></svg>
-      Cards
-    </button>
-  </div>
-
   <div class="count-badge" id="countBadge"><span id="countNum">0</span> programs</div>
 </div>
 
 <div class="active-filters" id="activeFilters"></div>
-
-<div class="table-wrap active" id="tableWrap">
-  <table id="programTable">
-    <thead>
-      <tr>
-        <th data-col="0">Program <span class="sort-icon">↕</span></th>
-        <th data-col="1">Grade Level <span class="sort-icon">↕</span></th>
-        <th data-col="2">Areas of Interest <span class="sort-icon">↕</span></th>
-        <th data-col="3">Deadline <span class="sort-icon">↕</span></th>
-        <th data-col="4">Cost &amp; Aid <span class="sort-icon">↕</span></th>
-        <th>Apply</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
-  <div class="empty-state" id="emptyState" style="display:none;">
-    <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="21" cy="21" r="15" stroke="#1a1714" stroke-width="3" fill="none"/><path d="M31 31l10 10" stroke="#1a1714" stroke-width="3" stroke-linecap="round"/></svg>
-    <p>No programs match your filters. Try adjusting your search.</p>
-  </div>
-</div>
 
 <div class="card-wrap" id="cardWrap">
   <div class="empty-state" id="emptyStateCard" style="display:none;">
@@ -627,131 +465,130 @@
 const TODAY = new Date(); TODAY.setHours(0,0,0,0);
 
 const programs = [
-  { name:"21st Century Leaders: Earth Care", college:"Georgia College & State University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/earthcare/", rolling:false },
-  { name:"21st Century Leaders: Film & Entertainment Institute (FEI)", college:"Georgia Institute of Technology", grades:["11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/film-entertainment-institute/", rolling:false },
-  { name:"Arizona State University: Camp Cronkite", college:"Arizona State University", grades:["10","11","12"], areas:["Media"], deadline:"March 15, 2026", cost:"$899", aid:"Scholarships available", url:"https://cronkite.asu.edu/community/high-school-programs/camps/", rolling:false },
-  { name:"Boston University: PROMYS", college:"Boston University", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"February 27, 2026", cost:"Up to $8,000", aid:"Full Scholarship", url:"https://promys.org/programs/promys/for-students/", rolling:false },
-  { name:"Brown University: BEE (International)", college:"Brown University", grades:["10","11","12"], areas:["International Education"], deadline:"May 8, 2026", cost:"$8,270", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/brown-experiential-education-bee", rolling:true },
-  { name:"Brown University: STEM for Rising 9th & 10th", college:"Brown University", grades:["9","10"], areas:["STEM Focus"], deadline:"May 8, 2026", cost:"$6,052", aid:"Full Scholarship", url:"https://precollege.brown.edu/stem-rising", rolling:true },
-  { name:"Brown University: Summer@Brown", college:"Brown University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus","Business Focus","Environmental or Sustainability Focus"], deadline:"May 8, 2026", cost:"$3,748–$10,858", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/summerbrown", rolling:true },
-  { name:"Bucknell University: BASE", college:"Bucknell University", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"See website", cost:"$1,750", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/bucknell-academy-summer-experience", rolling:false },
-  { name:"Bucknell University: Engineering Camp", college:"Bucknell University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (waitlist ~April 1)", cost:"$1,500", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/engineering-camp", rolling:true },
-  { name:"California COSMOS", college:"University of California (6 campuses)", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"February 6, 2026", cost:"$5,518", aid:"Scholarships available", url:"https://cosmos-ucop.ucdavis.edu/app/main", rolling:false },
-  { name:"Carleton College: CLAE", college:"Carleton College", grades:["12"], areas:["College Readiness","Humanities or Liberal Arts Focus","African American Studies"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.carleton.edu/admissions/visit/clae/", rolling:false },
-  { name:"Carleton College: SLAI", college:"Carleton College", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus","Visual or Performing Arts Focus"], deadline:"March 16, 2026 (1-wk) / March 2, 2026 (3-wk)", cost:"$1,500–$5,700", aid:"Scholarships available", url:"https://www.carleton.edu/summer/pre-college/", rolling:false },
-  { name:"Carnegie Mellon: AI Scholars", college:"Carnegie Mellon University", grades:["12"], areas:["Artificial Intelligence (AI)","STEM Focus"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/ai_scholars.html", rolling:false },
-  { name:"Carnegie Mellon: CS Scholars", college:"Carnegie Mellon University", grades:["11"], areas:["STEM Focus","Computer Science"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/computer-science-scholars.html", rolling:false },
-  { name:"Carnegie Mellon: SAMS", college:"Carnegie Mellon University", grades:["12"], areas:["STEM Focus","Mathematics"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/sams.html", rolling:false },
-  { name:"Colorado School of Mines: SUMMET", college:"Colorado School of Mines", grades:["12"], areas:["STEM Focus","Engineering"], deadline:"February 15, 2026", cost:"$50", aid:"Full Scholarship", url:"https://www.mines.edu/undergraduate-admissions/summer-mines-engineering-and-training-summet/", rolling:false },
-  { name:"Colorado State: Women in Construction Management", college:"Colorado State University", grades:["ages 15–18"], areas:["Construction","Engineering","Architecture"], deadline:"March 15, 2026", cost:"$25", aid:"Full Scholarship", url:"https://www.chhs.colostate.edu/cm/programs-and-degrees/b-s-in-construction-management/women-in-construction-management-summer-institute/", rolling:false },
-  { name:"Davidson College: Summer Promise Program", college:"Davidson College", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 12, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.davidson.edu/offices-and-services/civic-engagement/signature-programs/summer-promise-program", rolling:false },
-  { name:"Florida State: Young Scholars Program (YSP)", college:"Florida State University", grades:["12"], areas:["STEM Focus"], deadline:"February 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://ysp.osta.fsu.edu/", rolling:false },
-  { name:"Gonzaga University: SEAS/SSIP", college:"Gonzaga University", grades:["11","12"], areas:["STEM Focus"], deadline:"March 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.gonzaga.edu/school-of-engineering-applied-science/ssip", rolling:false },
-  { name:"Hampshire College: HCSSiM (Math)", college:"Hampshire College", grades:["10","11","12"], areas:["STEM Focus","Mathematics"], deadline:"Rolling (late April priority)", cost:"$7,208", aid:"Full Scholarship", url:"https://hcssim.org/", rolling:true },
-  { name:"Kenyon College: Camp 4", college:"Kenyon College", grades:["11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Visual or Performing Arts Focus"], deadline:"March 2, 2026", cost:"$4,200", aid:"Scholarships available", url:"https://www.kenyon.edu/offices-and-services/camp-4/", rolling:false },
-  { name:"MIT: MITES Summer", college:"Massachusetts Institute of Technology", grades:["12"], areas:["STEM Focus","College Readiness"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://mites.mit.edu/", rolling:false },
-  { name:"Michigan Ross: Summer Business Academy", college:"University of Michigan – Ross", grades:["12"], areas:["Business Focus"], deadline:"January 8, 2026", cost:"$5,500", aid:"Scholarships available", url:"https://michiganross.umich.edu/undergraduate/summer-business-academy", rolling:false },
-  { name:"Michigan Tech: Summer Youth Programs", college:"Michigan Technological University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering","Business Focus","Visual or Performing Arts Focus","Humanities or Liberal Arts Focus"], deadline:"See individual programs", cost:"$1,175 (residential)", aid:"Full Scholarship", url:"https://www.mtu.edu/syp/", rolling:true },
-  { name:"Missouri S&T: ASM Exploring Materials", college:"Missouri University of Science & Technology", grades:["ages 16–18"], areas:["Materials Science","Engineering"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/asmexploringmaterialsinyourworld/", rolling:false },
-  { name:"Missouri S&T: Derivative of Thrills (Math)", college:"Missouri University of Science & Technology", grades:["ages 15–18"], areas:["Mathematics"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/derivativeofthrillssummerinstitute/", rolling:false },
-  { name:"Morgan State: SAAMS (Math & Actuarial)", college:"Morgan State University", grades:["11","12"], areas:["STEM Focus","Computer Science","Mathematics","Actuarial Science"], deadline:"April 30, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.morgan.edu/saams", rolling:false },
-  { name:"NYU: ARISE (Research)", college:"New York University", grades:["11","12"], areas:["STEM Focus","College Readiness"], deadline:"February 20, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/arise", rolling:false },
-  { name:"NYU: CALI (College Admissions)", college:"New York University", grades:["12"], areas:["College Readiness"], deadline:"March 31, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.nyu.edu/admissions/high-school-and-middle-school-programs/high-school-programs/college-admissions-leadership-institute.html", rolling:false },
-  { name:"NYU: CS4CS (Cybersecurity)", college:"New York University", grades:["11","12"], areas:["Cybersecurity","Computer Science"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://engineering.nyu.edu/academics/programs/k12-stem-education/computer-science-cyber-security-cs4cs", rolling:false },
-  { name:"NYU: High School Summer Art Intensive", college:"New York University", grades:["10","11","12"], areas:["Studio and Fine Arts"], deadline:"March 1, 2026", cost:"$4,800+", aid:"Scholarships available", url:"https://steinhardt.nyu.edu/programs/art-education/high-school-programs/high-school-summer-art-intensive-studio-practice", rolling:false },
-  { name:"NYU: ieSoSC (Smart Cities)", college:"New York University", grades:["9","10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/iesosc", rolling:false },
-  { name:"NYU: Urban Journalism Workshop", college:"New York University", grades:["ages 16+"], areas:["Journalism","Writing Focus"], deadline:"March 11, 2026", cost:"$0", aid:"Full Scholarship", url:"https://journalism.nyu.edu/our-work/institute-projects/urban-journalism-workshop/", rolling:false },
-  { name:"Northwestern: College Bridge Program", college:"Northwestern University", grades:["12"], areas:["Interdisciplinary focus","College Credit"], deadline:"April 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://sps.northwestern.edu/pre-college/college-bridge/", rolling:false },
-  { name:"Otis College: Summer of Art", college:"Otis College of Art and Design", grades:["ages 14.5–19"], areas:["College Credit","Studio and Fine Arts"], deadline:"June 23, 2026", cost:"$2,690–$7,315", aid:"Partial Scholarship", url:"https://www.otis.edu/summer-art-online", rolling:true },
-  { name:"Outer Coast: Summer Seminar", college:"Outer Coast", grades:["11","12"], areas:["College Credit","College Readiness","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"Sliding scale", aid:"Scholarships available", url:"https://outercoast.org/outer-coast-programs/the-summer-seminar/", rolling:false },
-  { name:"Princeton: Summer Journalism Program", college:"Princeton University", grades:["12"], areas:["Journalism","Writing Focus","College Readiness"], deadline:"January 26, 2026", cost:"$0", aid:"Full Scholarship", url:"https://psjp.princeton.edu/about-program/program", rolling:false },
-  { name:"SMASH Residential (STEM)", college:"UC Berkeley / U-Michigan / Morehouse / Spelman / Northeastern", grades:["11","12"], areas:["STEM Focus","Computer Science"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.smash.org/programs/#smash-residential", rolling:false },
-  { name:"Smith College: Summer Precollege Programs", college:"Smith College", grades:["9","10","11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Environmental or Sustainability Focus","Visual or Performing Arts Focus","Engineering"], deadline:"May 1, 2026", cost:"$2,795–$4,985", aid:"Scholarships available", url:"https://www.smith.edu/academics/precollege-programs/homepage", rolling:true },
-  { name:"St. John's College: Summer Academy", college:"St. John's College", grades:["11","12","ages 14–18"], areas:["Humanities or Liberal Arts Focus"], deadline:"May 1, 2026", cost:"$1,400", aid:"Full Scholarship", url:"https://www.sjc.edu/summer-academy", rolling:false },
-  { name:"Stanford: SMYSP (Medicine)", college:"Stanford University", grades:["12"], areas:["STEM Focus","Medicine","College Readiness"], deadline:"March 23, 2026", cost:"$0", aid:"Full Scholarship", url:"https://med.stanford.edu/odme/high-school-students/smysp.html", rolling:false },
-  { name:"Summer Science Program (Astrophysics/Biochem)", college:"Multiple Host Universities", grades:["12"], areas:["STEM Focus"], deadline:"February 19, 2026", cost:"$9,800", aid:"Full Scholarship", url:"https://ssp.org/program-overview/", rolling:false },
-  { name:"Telluride Association Summer Seminar (TASS)", college:"Cornell / U of Maryland", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"December 3, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.tellurideassociation.org/our-programs/high-school-students/", rolling:false },
-  { name:"Texas Tech: Anson L. Clark Scholars (Research)", college:"Texas Tech University", grades:["12"], areas:["STEM Focus","Computer Science","Economics"], deadline:"February 16, 2026", cost:"$0 (+$25 fee)", aid:"Full Scholarship", url:"https://www.depts.ttu.edu/honors/academicsandenrichment/affiliatedandhighschool/clarks/index.php", rolling:false },
-  { name:"The Cooper Union: Summer STEM", college:"The Cooper Union", grades:["10","11","12"], areas:["Engineering","Computer Science"], deadline:"March 22, 2026", cost:"$3,150–$5,150", aid:"Scholarships available", url:"https://cooper.edu/engineering/stem/summer", rolling:false },
-  { name:"UChicago: Emerging Rural Leaders 9th", college:"University of Chicago", grades:["10"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-9th/", rolling:false },
-  { name:"UChicago: Emerging Rural Leaders 10th", college:"University of Chicago", grades:["11"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-10th/", rolling:false },
-  { name:"UChicago: Emerging Rural Leaders 11th", college:"University of Chicago", grades:["12"], areas:["College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-11th/", rolling:false },
-  { name:"UChicago: Exploring Frontiers", college:"University of Chicago", grades:["11"], areas:["Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/exploring-frontiers/", rolling:false },
-  { name:"UChicago: Future Intelligence Institute (AI)", college:"University of Chicago", grades:["10","11"], areas:["Artificial Intelligence (AI)","College Readiness","Career Preparation"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/future-intelligence-institute/", rolling:false },
-  { name:"UChicago: Neubauer Adelante Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Hispanic/Latino Communities","Interdisciplinary focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/neubauer-family-adelante-summer-scholars/", rolling:false },
-  { name:"UChicago: Neubauer Phoenix STEM Scholars", college:"University of Chicago", grades:["12"], areas:["STEM Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/programs/neubauer-phoenix-stem-summer-scholars", rolling:false },
-  { name:"UChicago: New Horizons", college:"University of Chicago", grades:["11","12"], areas:["Social Science Interest","Humanities or Liberal Arts Focus","Leadership Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/new-horizons/", rolling:false },
-  { name:"UChicago: Quantum Quickstart", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/quantum-quickstart/", rolling:false },
-  { name:"UChicago: Woodson Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Black/African American Communities","College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/woodson-scholars-program/", rolling:false },
-  { name:"UChicago: Young Innovators Climate & Energy", college:"University of Chicago", grades:["12"], areas:["Environmental or Sustainability Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators-climate-and-energy-program/", rolling:false },
-  { name:"UChicago: Young Innovators Program (YIP)", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators/", rolling:false },
-  { name:"UC Denver: LYNX Arts & Media Camps", college:"University of Colorado Denver", grades:["9","10","11","12"], areas:["Arts & Music"], deadline:"May 15, 2026", cost:"$650–$2,600", aid:"Partial Scholarship", url:"https://artsandmedia.ucdenver.edu/prospective-students/lynx-camps", rolling:true },
-  { name:"University of Delaware: CRSI", college:"University of Delaware", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.udel.edu/apply/undergraduate-admissions/precollege-programs/college-readiness-scholars-institute/", rolling:false },
-  { name:"University of Denver: Access DU", college:"University of Denver", grades:["11","12"], areas:["College Readiness"], deadline:"March 13, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.du.edu/admission-aid/undergraduate/access-du", rolling:false },
-  { name:"U of Illinois: Grainger Engineering Summer Camps", college:"University of Illinois Urbana-Champaign", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (priority March 31)", cost:"$1,500 (residential)", aid:"Full Scholarship", url:"https://wyse.grainger.illinois.edu/summer-programs/summer-camps", rolling:true },
-  { name:"University of Kansas: Summer Venture in Business", college:"University of Kansas", grades:["11","12"], areas:["Business Focus"], deadline:"February 13, 2026", cost:"$50", aid:"Full Scholarship", url:"https://business.ku.edu/undergraduate-programs/summer-venture-business", rolling:false },
-  { name:"Notre Dame: Leadership Seminars", college:"University of Notre Dame", grades:["12"], areas:["Leadership Focus","College Credit"], deadline:"January 21, 2026", cost:"$225", aid:"Scholarships available", url:"https://precollege.nd.edu/leadership-seminars/", rolling:false },
-  { name:"Notre Dame: Summer Scholars", college:"University of Notre Dame", grades:["11","12"], areas:["Interdisciplinary focus","College Credit"], deadline:"February 18, 2026", cost:"$4,900", aid:"Scholarships available", url:"https://precollege.nd.edu/summer-scholars/", rolling:false },
-  { name:"USC: Bovard Scholars", college:"University of Southern California", grades:["12"], areas:["College Readiness","Career Preparation"], deadline:"January 16, 2026", cost:"$0", aid:"Full Scholarship", url:"https://bovardscholars.usc.edu/", rolling:false },
-  { name:"UT Austin: Academy for All", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science","Machine Learning"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/all", rolling:false },
-  { name:"UT Austin: Academy for Women", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/women", rolling:false },
-  { name:"UW–Madison: Accelerated Learning Program (ALP)", college:"University of Wisconsin–Madison", grades:["10","11","12"], areas:["Interdisciplinary focus"], deadline:"May 1, 2026", cost:"$4,750", aid:"Full Scholarship", url:"https://precollege.wisc.edu/accelerated-learning-program/", rolling:true },
-  { name:"University of Wyoming: Summer HSI", college:"University of Wyoming", grades:["11"], areas:["Interdisciplinary focus","College Readiness"], deadline:"February 8, 2026", cost:"$325", aid:"None listed", url:"https://www.uwyo.edu/hsi/", rolling:false },
-  { name:"WashU: Rural Scholars Academy", college:"Washington University in St. Louis", grades:["11"], areas:["College Readiness","Leadership Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://admissions.washu.edu/heartland-initiative/heartland-summer-program/", rolling:false },
-  { name:"Yale: Young Global Scholars (YYGS)", college:"Yale University", grades:["11","12"], areas:["Interdisciplinary focus"], deadline:"January 7, 2026", cost:"$7,000", aid:"Full Scholarship", url:"https://globalscholars.yale.edu/", rolling:false },
+  { name:"21st Century Leaders: Earth Care", college:"Georgia College & State University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/earthcare/", rolling:false , desc:"A free, week-long residential STEM and leadership program held on a Georgia college campus each June. Fellows explore environmental challenges through workshops, team-building, and roundtable sessions with Georgia Power business leaders — perfect for students interested in sustainability, engineering, or developing their leadership skills." },
+  { name:"21st Century Leaders: Film & Entertainment Institute (FEI)", college:"Georgia Institute of Technology", grades:["11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.21stcenturyleaders.org/for-students/summer-leadership-institutes/film-entertainment-institute/", rolling:false , desc:"A free, week-long residential program hosted at Georgia Tech that plunges students into the film and entertainment industry. Fellows attend hands-on workshops led by working production professionals and network with industry employees — ideal for students passionate about media, storytelling, or creative careers." },
+  { name:"Arizona State University: Camp Cronkite", college:"Arizona State University", grades:["10","11","12"], areas:["Media"], deadline:"March 15, 2026", cost:"$899", aid:"Scholarships available", url:"https://cronkite.asu.edu/community/high-school-programs/camps/", rolling:false , desc:"A week-long residential media camp at ASU's nationally ranked Cronkite School of Journalism, where high schoolers learn broadcast, digital, and multimedia storytelling hands-on. Faculty, staff, and student guides lead daily sessions in a state-of-the-art facility, with supervised evening programming rounding out the experience." },
+  { name:"Boston University: PROMYS", college:"Boston University", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"February 27, 2026", cost:"Up to $8,000", aid:"Full Scholarship", url:"https://promys.org/programs/promys/for-students/", rolling:false , desc:"A rigorous six-week residential mathematics program at Boston University, carefully selecting roughly 80 motivated students from across the U.S. and world each summer. Fellows spend the program doing real mathematics — not just studying it — alongside undergraduate counselors and visiting mathematicians." },
+  { name:"Brown University: BEE (International)", college:"Brown University", grades:["10","11","12"], areas:["International Education"], deadline:"May 8, 2026", cost:"$8,270", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/brown-experiential-education-bee", rolling:true , desc:"An immersive two-week program that takes students to Barcelona or Oxford for interdisciplinary, college-level coursework deeply connected to its international setting. Fellows explore global challenges through an experiential lens, building skills in critical thinking and cross-cultural perspective — financial aid is available." },
+  { name:"Brown University: STEM for Rising 9th & 10th", college:"Brown University", grades:["9","10"], areas:["STEM Focus"], deadline:"May 8, 2026", cost:"$6,052", aid:"Full Scholarship", url:"https://precollege.brown.edu/stem-rising", rolling:true , desc:"A two-week residential STEM program at Brown University designed specifically for rising 9th and 10th graders ready for advanced academic challenge. Students choose a course that combines rigorous content with hands-on lab work and a final research project or design challenge, presented to peers and faculty." },
+  { name:"Brown University: Summer@Brown", college:"Brown University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus","Business Focus","Environmental or Sustainability Focus"], deadline:"May 8, 2026", cost:"$3,748–$10,858", aid:"Full Scholarship", url:"https://precollege.brown.edu/programs/summerbrown", rolling:true , desc:"Brown's flagship pre-college program offering 230+ non-credit courses across virtually every subject — from neuroscience to creative writing to entrepreneurship. Rising 10th–12th graders live on campus for 1–5 weeks, attending workshops and events while building the independence and skills they'll need in college." },
+  { name:"Bucknell University: BASE", college:"Bucknell University", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"See website", cost:"$1,750", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/bucknell-academy-summer-experience", rolling:false , desc:"A selective, week-long residential program where rising sophomores through seniors work alongside Bucknell faculty to tackle real-world problems using creative, interdisciplinary thinking. BASE introduces students to the rigor and collaborative spirit of a Bucknell education — limited need-based aid is available." },
+  { name:"Bucknell University: Engineering Camp", college:"Bucknell University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (waitlist ~April 1)", cost:"$1,500", aid:"Scholarships available", url:"https://www.bucknell.edu/admissions-aid/plan-visit/camps-conferences-visit-programs/engineering-camp", rolling:true , desc:"A hands-on, week-long engineering program where middle and high schoolers experiment in Bucknell's real research labs under the guidance of world-class faculty. Students explore the many branches of engineering through demonstrations, live projects, and direct interaction with professors — with rolling admission until capacity is reached." },
+  { name:"California COSMOS", college:"University of California (6 campuses)", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"February 6, 2026", cost:"$5,518", aid:"Scholarships available", url:"https://cosmos-ucop.ucdavis.edu/app/main", rolling:false , desc:"An intensive four-week residential STEM program hosted across six UC campuses, designed for students in grades 8–12 with strong aptitude for science and mathematics. Fellows work with renowned researchers in cutting-edge facilities on topics far beyond what's typically offered in high school — financial assistance is available." },
+  { name:"Carleton College: CLAE", college:"Carleton College", grades:["12"], areas:["College Readiness","Humanities or Liberal Arts Focus","African American Studies"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.carleton.edu/admissions/visit/clae/", rolling:false , desc:"A fully funded, week-long residential program at Carleton College for rising 12th graders interested in African American history and culture and eager to explore liberal arts education. Fellows engage in rigorous, college-level coursework across multiple disciplines — all expenses paid through the generosity of Carleton alumni." },
+  { name:"Carleton College: SLAI", college:"Carleton College", grades:["10","11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus","Visual or Performing Arts Focus"], deadline:"March 16, 2026 (1-wk) / March 2, 2026 (3-wk)", cost:"$1,500–$5,700", aid:"Scholarships available", url:"https://www.carleton.edu/summer/pre-college/", rolling:false , desc:"A summer learning community for academically motivated high schoolers to experience a true liberal arts education at one of the nation's top colleges. Students choose from 1- or 3-week tracks spanning STEM, humanities, social sciences, and the arts — with need-based scholarships available." },
+  { name:"Carnegie Mellon: AI Scholars", college:"Carnegie Mellon University", grades:["12"], areas:["Artificial Intelligence (AI)","STEM Focus"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/ai_scholars.html", rolling:false , desc:"A fully funded, four-week residential program at CMU for rising seniors to explore artificial intelligence through classroom instruction, faculty-led research projects, and industry engagement. Scholars develop real-world technical skills and receive mentorship from CMU's leading AI faculty and researchers." },
+  { name:"Carnegie Mellon: CS Scholars", college:"Carnegie Mellon University", grades:["11"], areas:["STEM Focus","Computer Science"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/computer-science-scholars.html", rolling:false , desc:"A free, four-week deep dive into computer science for rising 11th graders, combining hands-on projects, faculty lectures, and engagement with leading tech companies. Led by CMU's nationally ranked School of Computer Science, this merit-based program is fully funded with no cost to students." },
+  { name:"Carnegie Mellon: SAMS", college:"Carnegie Mellon University", grades:["12"], areas:["STEM Focus","Mathematics"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.cmu.edu/pre-college/academic-programs/sams.html", rolling:false , desc:"A six-week hybrid program led by CMU's Center for Student Diversity & Inclusion, immersing rising seniors in rigorous STEM coursework alongside world-renowned faculty and skilled staff mentors. SAMS is fully funded — students pay only for travel — and builds both technical skills and meaningful peer relationships." },
+  { name:"Colorado School of Mines: SUMMET", college:"Colorado School of Mines", grades:["12"], areas:["STEM Focus","Engineering"], deadline:"February 15, 2026", cost:"$50", aid:"Full Scholarship", url:"https://www.mines.edu/undergraduate-admissions/summer-mines-engineering-and-training-summet/", rolling:false , desc:"A free, week-long engineering and science experience tailored for rising seniors who are prospective first-generation college students, though all backgrounds are welcome. SUMMET blends coursework, hands-on projects, and social events to give students a realistic preview of engineering college life." },
+  { name:"Colorado State: Women in Construction Management", college:"Colorado State University", grades:["ages 15–18"], areas:["Construction","Engineering","Architecture"], deadline:"March 15, 2026", cost:"$25", aid:"Full Scholarship", url:"https://www.chhs.colostate.edu/cm/programs-and-degrees/b-s-in-construction-management/women-in-construction-management-summer-institute/", rolling:false , desc:"A five-day, four-night residential program for students ages 15–18 interested in architecture, engineering, and construction management — one of the highest-paying majors. Fellows work with professional women in the AEC industry and college mentors through hands-on activities, paying just a $25 fee." },
+  { name:"Davidson College: Summer Promise Program", college:"Davidson College", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 12, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.davidson.edu/offices-and-services/civic-engagement/signature-programs/summer-promise-program", rolling:false , desc:"A free, week-long college readiness program at Davidson College for rising 9th through 12th graders of all backgrounds. Fellows experience campus life, participate in workshops on college preparation, and build community with peers and Davidson students in an affirming, supportive environment." },
+  { name:"Florida State: Young Scholars Program (YSP)", college:"Florida State University", grades:["12"], areas:["STEM Focus"], deadline:"February 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://ysp.osta.fsu.edu/", rolling:false , desc:"A fully funded, six-week residential STEM program at Florida State University exclusively for Florida high schoolers with strong potential in science, technology, engineering, or mathematics. Every participant receives an automatic scholarship covering over $7,000 in room, board, and tuition." },
+  { name:"Gonzaga University: SEAS/SSIP", college:"Gonzaga University", grades:["11","12"], areas:["STEM Focus"], deadline:"March 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.gonzaga.edu/school-of-engineering-applied-science/ssip", rolling:false , desc:"A free, week-long residential program at Gonzaga that introduces female-identifying students to engineering and computer science through hands-on projects, industry tours, and mentorship from professional women engineers. All costs — housing, meals, and materials — are covered by program sponsors." },
+  { name:"Hampshire College: HCSSiM (Math)", college:"Hampshire College", grades:["10","11","12"], areas:["STEM Focus","Mathematics"], deadline:"Rolling (late April priority)", cost:"$7,208", aid:"Full Scholarship", url:"https://hcssim.org/", rolling:true , desc:"An intensive six-week residential mathematics program at Hampshire College for talented, highly motivated students who want to do real math — not just study it. Fellows spend each day actively engaged in problem-solving and mathematical exploration, with rolling admissions and generous financial aid for students of all income levels." },
+  { name:"Kenyon College: Camp 4", college:"Kenyon College", grades:["11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Visual or Performing Arts Focus"], deadline:"March 2, 2026", cost:"$4,200", aid:"Scholarships available", url:"https://www.kenyon.edu/offices-and-services/camp-4/", rolling:false , desc:"A three-week immersive residential program at Kenyon College bringing together rising juniors and seniors from across the country for a deep dive into college-level academics across a wide range of disciplines. Students experience what college truly looks like — intellectually and socially — with need-based financial aid available." },
+  { name:"MIT: MITES Summer", college:"Massachusetts Institute of Technology", grades:["12"], areas:["STEM Focus","College Readiness"], deadline:"February 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://mites.mit.edu/", rolling:false , desc:"A fully funded, six-week residential program at MIT for rising seniors from across the country, immersing students in five rigorous courses spanning math, science, and humanities while providing college admissions counseling and exposure to STEM careers. All program costs are covered — students pay only for transportation." },
+  { name:"Michigan Ross: Summer Business Academy", college:"University of Michigan – Ross", grades:["12"], areas:["Business Focus"], deadline:"January 8, 2026", cost:"$5,500", aid:"Scholarships available", url:"https://michiganross.umich.edu/undergraduate/summer-business-academy", rolling:false , desc:"A two-week residential program at the University of Michigan's top-ranked Ross School of Business, giving rising seniors a real inside look at how companies operate and how business students learn. Fellows work through case studies, hear from industry leaders, and experience life as a Michigan Ross student — with need-based scholarships available." },
+  { name:"Michigan Tech: Summer Youth Programs", college:"Michigan Technological University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering","Business Focus","Visual or Performing Arts Focus","Humanities or Liberal Arts Focus"], deadline:"See individual programs", cost:"$1,175 (residential)", aid:"Full Scholarship", url:"https://www.mtu.edu/syp/", rolling:true , desc:"A series of week-long STEM, business, and career exploration programs at Michigan Technological University for middle and high school students from around the world. Students live in campus dorms, eat in the dining hall, and choose from dozens of tracks — from engineering to the arts — with pathway programs offering deeper faculty engagement." },
+  { name:"Missouri S&T: ASM Exploring Materials", college:"Missouri University of Science & Technology", grades:["ages 16–18"], areas:["Materials Science","Engineering"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/asmexploringmaterialsinyourworld/", rolling:false , desc:"A free, week-long camp at Missouri S&T where students ages 16–18 explore materials science and engineering through team-based, hands-on problem-solving that blends education with experimentation. All costs — housing, meals, and materials — are covered, making this an accessible option for any motivated student." },
+  { name:"Missouri S&T: Derivative of Thrills (Math)", college:"Missouri University of Science & Technology", grades:["ages 15–18"], areas:["Mathematics"], deadline:"May 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://summer.mst.edu/browse/derivativeofthrillssummerinstitute/", rolling:false , desc:"A free, week-long institute at Missouri S&T for students ages 15–18 that makes mathematics come alive through the physics and design of roller coasters. Fellows explore how calculus and applied math power real-world engineering challenges — no prior advanced math required beyond Algebra 1 and Geometry." },
+  { name:"Morgan State: SAAMS (Math & Actuarial)", college:"Morgan State University", grades:["11","12"], areas:["STEM Focus","Computer Science","Mathematics","Actuarial Science"], deadline:"April 30, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.morgan.edu/saams", rolling:false , desc:"A four-week hybrid program at Morgan State University — an HBCU in Baltimore — designed to spark excitement in mathematics, actuarial science, and computer science among rising 11th and 12th graders. Accepted students receive a stipend, attend interdisciplinary classes, go on field trips, and engage in professional development — all at no cost." },
+  { name:"NYU: ARISE (Research)", college:"New York University", grades:["11","12"], areas:["STEM Focus","College Readiness"], deadline:"February 20, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/arise", rolling:false , desc:"A free, 10-week summer research program for NYC-area rising 11th and 12th graders, funded by the Pinkerton Foundation, that places students in over 80 NYU labs to work alongside faculty on real research projects. Fellows also receive a $1,000 stipend upon completing a successful research project." },
+  { name:"NYU: CALI (College Admissions)", college:"New York University", grades:["12"], areas:["College Readiness"], deadline:"March 31, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.nyu.edu/admissions/high-school-and-middle-school-programs/high-school-programs/college-admissions-leadership-institute.html", rolling:false , desc:"A free, week-long commuter program in New York City led by NYU admissions counselors that walks rising seniors through the college application process from start to finish. Open to NYC metro area students, CALI covers essays, interviews, financial aid, and decision-making in an intensive workshop format." },
+  { name:"NYU: CS4CS (Cybersecurity)", college:"New York University", grades:["11","12"], areas:["Cybersecurity","Computer Science"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://engineering.nyu.edu/academics/programs/k12-stem-education/computer-science-cyber-security-cs4cs", rolling:false , desc:"A free, four-week in-person program at NYU for NYC-area rising 11th and 12th graders introducing the fundamentals of cybersecurity and computer science — no prior experience required. Topics include ethical hacking, cryptography, digital forensics, and privacy in the fast-growing cyber industry." },
+  { name:"NYU: High School Summer Art Intensive", college:"New York University", grades:["10","11","12"], areas:["Studio and Fine Arts"], deadline:"March 1, 2026", cost:"$4,800+", aid:"Scholarships available", url:"https://steinhardt.nyu.edu/programs/art-education/high-school-programs/high-school-summer-art-intensive-studio-practice", rolling:false , desc:"A highly competitive four-week in-person studio art program at NYU that admits just 54 students to work directly with practicing art professionals in three intimate cohorts. Rising 10th–12th graders create ambitious work beyond what's typically possible in high school — financial aid is available for early applicants." },
+  { name:"NYU: ieSoSC (Smart Cities)", college:"New York University", grades:["9","10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"May 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://k12stem.engineering.nyu.edu/programs/iesosc", rolling:false , desc:"A free, four-to-five-week in-person program at NYU for NYC-area rising 9th–11th graders that blends coding, entrepreneurship, and engineering around the theme of smart city design. Students learn microcontrollers, circuit deployment, and the business side of product development — all at no cost." },
+  { name:"NYU: Urban Journalism Workshop", college:"New York University", grades:["ages 16+"], areas:["Journalism","Writing Focus"], deadline:"March 11, 2026", cost:"$0", aid:"Full Scholarship", url:"https://journalism.nyu.edu/our-work/institute-projects/urban-journalism-workshop/", rolling:false , desc:"A free, week-long residential journalism program at NYU for students ages 16 and up in the New York tri-state area (NY, NJ, CT). Fellows receive hands-on instruction from NYU faculty and visiting professionals and produce their own multimedia stories over the course of the week." },
+  { name:"Otis College: Summer of Art", college:"Otis College of Art and Design", grades:["ages 14.5–19"], areas:["College Credit","Studio and Fine Arts"], deadline:"June 23, 2026", cost:"$2,690–$7,315", aid:"Partial Scholarship", url:"https://www.otis.edu/summer-art-online", rolling:true , desc:"A four-week immersive pre-college experience at Otis College of Art and Design in Los Angeles for students ages 14.5–19 to explore college-level art and design courses, refine their skills, and build a portfolio — with the option to earn three transferable college credits. Scholarships are available to cover partial or full tuition." },
+  { name:"Outer Coast: Summer Seminar", college:"Outer Coast", grades:["11","12"], areas:["College Credit","College Readiness","Environmental or Sustainability Focus"], deadline:"March 1, 2026", cost:"Sliding scale", aid:"Scholarships available", url:"https://outercoast.org/outer-coast-programs/the-summer-seminar/", rolling:false , desc:"A three-week residential program in Sitka, Alaska where rising 11th and 12th graders engage in college-level academics, practice civic leadership, and build community in a self-governing learning environment. Outer Coast meets 100% of demonstrated financial need for all students, including domestic travel." },
+  { name:"Princeton: Summer Journalism Program", college:"Princeton University", grades:["12"], areas:["Journalism","Writing Focus","College Readiness"], deadline:"January 26, 2026", cost:"$0", aid:"Full Scholarship", url:"https://psjp.princeton.edu/about-program/program", rolling:false , desc:"A year-long, fully funded college preparation program for rising 12th graders interested in journalism, featuring online workshops throughout summer and a 10-day residential intensive on Princeton's campus. Fellows complete components of their college applications, work with assigned college counselors, and publish their own reporting." },
+  { name:"SMASH Residential (STEM)", college:"UC Berkeley / U-Michigan / Morehouse / Spelman / Northeastern", grades:["11","12"], areas:["STEM Focus","Computer Science"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.smash.org/programs/#smash-residential", rolling:false , desc:"A free, intensive three-week residential STEM program hosted at partner universities including UC Berkeley, University of Michigan, Morehouse, Spelman, and Northeastern. Fellows build technical skills alongside a cohort of peers, receive mentorship from STEM professionals, and develop the confidence to pursue STEM careers." },
+  { name:"Smith College: Summer Precollege Programs", college:"Smith College", grades:["9","10","11","12"], areas:["College Readiness","STEM Focus","Humanities or Liberal Arts Focus","Writing Focus","Environmental or Sustainability Focus","Visual or Performing Arts Focus","Engineering"], deadline:"May 1, 2026", cost:"$2,795–$4,985", aid:"Scholarships available", url:"https://www.smith.edu/academics/precollege-programs/homepage", rolling:true , desc:"A residential pre-college program at Smith College in Northampton, MA for rising 9th–12th graders to pursue academic and extracurricular passions alongside a supportive community of scholars. What sets Smith apart is its commitment to building real college connections — with faculty, staff, and undergraduates — through intentional after-class programming." },
+  { name:"St. John's College: Summer Academy", college:"St. John's College", grades:["11","12","ages 14–18"], areas:["Humanities or Liberal Arts Focus"], deadline:"May 1, 2026", cost:"$1,400", aid:"Full Scholarship", url:"https://www.sjc.edu/summer-academy", rolling:false , desc:"A week-long residential program at St. John's College (Annapolis, MD or Santa Fe, NM) for students ages 15–18, built around St. John's famous discussion-based method of exploring great books. Fellows hone critical thinking, reading, and discussion skills with faculty — a genuine preview of what college learning can feel like." },
+  { name:"Stanford: SMYSP (Medicine)", college:"Stanford University", grades:["12"], areas:["STEM Focus","Medicine","College Readiness"], deadline:"March 23, 2026", cost:"$0", aid:"Full Scholarship", url:"https://med.stanford.edu/odme/high-school-students/smysp.html", rolling:false , desc:"A free, five-week immersive enrichment program at Stanford focused on science and medicine, exclusively for low-income, first-generation rising 12th graders in Northern California. Fellows engage with Stanford Medicine faculty, attend professional development workshops, and complete a public health research project." },
+  { name:"Summer Science Program (Astrophysics/Biochem)", college:"Multiple Host Universities", grades:["12"], areas:["STEM Focus"], deadline:"February 19, 2026", cost:"$9,800", aid:"Full Scholarship", url:"https://ssp.org/program-overview/", rolling:false , desc:"One of the oldest residential STEM programs in the nation, offering rising seniors five weeks of hands-on research experience in astrophysics, biochemistry, bacterial genomics, or synthetic chemistry at partner university campuses. Fellows use professional research equipment and share findings with scientists — financial aid is available for families earning under $140,000." },
+  { name:"Telluride Association Summer Seminar (TASS)", college:"Cornell / U of Maryland", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"December 3, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.tellurideassociation.org/our-programs/high-school-students/", rolling:false , desc:"A free, five-week residential intellectual community for rising 11th and 12th graders hosted at Cornell and the University of Maryland, built around critical thinking, democratic self-governance, and deep engagement with ideas. Every aspect — tuition, books, housing, meals, and field trips — is fully funded." },
+  { name:"Texas Tech: Anson L. Clark Scholars (Research)", college:"Texas Tech University", grades:["12"], areas:["STEM Focus","Computer Science","Economics"], deadline:"February 16, 2026", cost:"$0 (+$25 fee)", aid:"Full Scholarship", url:"https://www.depts.ttu.edu/honors/academicsandenrichment/affiliatedandhighschool/clarks/index.php", rolling:false , desc:"An intensive, seven-week summer research program at Texas Tech University admitting just 12 highly qualified rising seniors for a fully funded research experience. Scholars work on independent research projects, receive a $750 stipend upon completion, and pay only a $25 application fee." },
+  { name:"The Cooper Union: Summer STEM", college:"The Cooper Union", grades:["10","11","12"], areas:["Engineering","Computer Science"], deadline:"March 22, 2026", cost:"$3,150–$5,150", aid:"Scholarships available", url:"https://cooper.edu/engineering/stem/summer", rolling:false , desc:"A 3-to-6-week in-person engineering and computer science program at The Cooper Union in New York City for rising 10th–12th graders, covering college-level topics drawn from Cooper Union's undergraduate curriculum. Financial aid is available for households earning up to 120% of the NYC area median income." },
+  { name:"UChicago: Emerging Rural Leaders 9th", college:"University of Chicago", grades:["10"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-9th/", rolling:false , desc:"A week-long residential program at the University of Chicago exclusively for rising 10th graders who attend rural or small-town high schools, exploring leadership, civic discourse, and entrepreneurship through UChicago faculty. Students with household incomes under $125,000 can apply for a full fee waiver." },
+  { name:"UChicago: Emerging Rural Leaders 10th", college:"University of Chicago", grades:["11"], areas:["College Readiness","Leadership Focus","Entrepreneurship","Business Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-10th/", rolling:false , desc:"A week-long program at UChicago for rising 11th graders from rural or small-town schools that explores business, entrepreneurship, and local economic development through faculty from UChicago and USC's business schools. Full fee waivers are available for families earning under $125,000." },
+  { name:"UChicago: Emerging Rural Leaders 11th", college:"University of Chicago", grades:["12"], areas:["College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/emerging-rural-leaders-11th/", rolling:false , desc:"A week-long residential program for high-achieving rising 12th graders from rural and small-town schools, featuring interdisciplinary classes with UChicago faculty, research facility tours, and college application workshops. Supported by Trott Family Philanthropies — with fee waivers available based on income." },
+  { name:"UChicago: Exploring Frontiers", college:"University of Chicago", grades:["11"], areas:["Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/exploring-frontiers/", rolling:false , desc:"A week-long program at UChicago for outstanding rising 11th graders from California or the New York metro area, offering model classes in Chicago-style economics, ancient Greek thought, neuroscience, and more alongside campus excursions. Fee waivers are available for families earning under $125,000." },
+  { name:"UChicago: Future Intelligence Institute (AI)", college:"University of Chicago", grades:["10","11"], areas:["Artificial Intelligence (AI)","College Readiness","Career Preparation"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/future-intelligence-institute/", rolling:false , desc:"A week-long residential AI program at UChicago where rising 10th and 11th graders attend faculty lectures, tour cutting-edge AI research labs, and participate in career sessions and admissions counseling from UChicago advisors. Fee waivers available for families earning under $125,000." },
+  { name:"UChicago: Neubauer Adelante Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Hispanic/Latino Communities","Interdisciplinary focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/neubauer-family-adelante-summer-scholars/", rolling:false , desc:"A week-long UChicago program open to all students that centers on engagement with Hispanic and Latino communities, featuring interdisciplinary classes, research facility tours, and college application workshops. Supported by the Neubauer family — with fee waivers for families earning under $125,000." },
+  { name:"UChicago: Neubauer Phoenix STEM Scholars", college:"University of Chicago", grades:["12"], areas:["STEM Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/programs/neubauer-phoenix-stem-summer-scholars", rolling:false , desc:"A hybrid program for rising 12th graders that begins with a virtual mathematics course through Schoolhouse.world before bringing scholars to UChicago's campus for a week of model classes, facility tours, and visits to Argonne National Laboratory and Fermilab. Fee waivers available for qualifying families." },
+  { name:"UChicago: New Horizons", college:"University of Chicago", grades:["11","12"], areas:["Social Science Interest","Humanities or Liberal Arts Focus","Leadership Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/new-horizons/", rolling:false , desc:"A week-long residential program at UChicago for rising 11th and 12th graders offering lectures and hands-on activities spanning the Core Curriculum, public discourse, economics, and bioscience — led by UChicago faculty. Students with household incomes under $125,000 can apply for a full fee waiver." },
+  { name:"UChicago: Quantum Quickstart", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","College Readiness"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/quantum-quickstart/", rolling:false , desc:"A week-long program at UChicago's Pritzker School of Molecular Engineering for rising 10th and 11th graders who are passionate about STEM, exploring quantum mechanics, quantum computing, and its applications through faculty lectures and world-class lab tours. Fee waivers available for qualifying families." },
+  { name:"UChicago: Woodson Summer Scholars", college:"University of Chicago", grades:["12"], areas:["Black/African American Communities","College Readiness","Interdisciplinary focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/woodson-scholars-program/", rolling:false , desc:"A week-long residential program named for historian Carter G. Woodson that centers on engagement with Black and African American communities, offering interdisciplinary classes, research tours, and a window into Chicago's cultural life. Open to students of all backgrounds — fee waivers available for families earning under $125,000." },
+  { name:"UChicago: Young Innovators Climate & Energy", college:"University of Chicago", grades:["12"], areas:["Environmental or Sustainability Focus"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators-climate-and-energy-program/", rolling:false , desc:"A week-long residential program at UChicago's Energy Policy Institute for rising 12th graders exploring the science, policy, and economics of climate and energy through rigorous discussion-based classes and collaborative projects. Fee waivers available for families earning under $125,000." },
+  { name:"UChicago: Young Innovators Program (YIP)", college:"University of Chicago", grades:["10","11"], areas:["STEM Focus","Environmental or Sustainability Focus","Entrepreneurship"], deadline:"March 12, 2026", cost:"$2,500", aid:"Scholarships available", url:"https://summer.uchicago.edu/courses/young-innovators/", rolling:false , desc:"A week-long in-person program at UChicago in partnership with Invenergy that immerses rising 10th and 11th graders in STEM innovation, renewable energy entrepreneurship, and mentorship from industry leaders. Fee waivers are available for families earning under $125,000." },
+  { name:"UC Denver: LYNX Arts & Media Camps", college:"University of Colorado Denver", grades:["9","10","11","12"], areas:["Arts & Music"], deadline:"May 15, 2026", cost:"$650–$2,600", aid:"Partial Scholarship", url:"https://artsandmedia.ucdenver.edu/prospective-students/lynx-camps", rolling:true , desc:"Summer immersion programs in arts and music hosted on the University of Colorado Denver campus for rising 9th–12th graders, offering 1-to-2-week sessions across disciplines like film, music, digital media, and graphic design. Partial scholarships are available with a priority deadline in March." },
+  { name:"University of Delaware: CRSI", college:"University of Delaware", grades:["9","10","11","12"], areas:["College Readiness"], deadline:"April 15, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.udel.edu/apply/undergraduate-admissions/precollege-programs/college-readiness-scholars-institute/", rolling:false , desc:"A completely free two-week residential program at the University of Delaware for first-generation and low-income rising 9th–12th graders, covering all costs of housing, dining, and activities. Fellows build college readiness skills — from essay writing to organizational habits — and develop lasting connections with peers and mentors." },
+  { name:"University of Denver: Access DU", college:"University of Denver", grades:["11","12"], areas:["College Readiness"], deadline:"March 13, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.du.edu/admission-aid/undergraduate/access-du", rolling:false , desc:"A free, four-day residential experience at the University of Denver for high-achieving rising 11th and 12th graders from across the country, bringing diverse students together to explore DU's campus and community. Travel stipends are available for students who need financial support to attend." },
+  { name:"U of Illinois: Grainger Engineering Summer Camps", college:"University of Illinois Urbana-Champaign", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (priority March 31)", cost:"$1,500 (residential)", aid:"Full Scholarship", url:"https://wyse.grainger.illinois.edu/summer-programs/summer-camps", rolling:true , desc:"A series of week-long residential and commuter STEM camps at one of the nation's top engineering schools, open to rising 7th–12th graders across disciplines from aerospace to bioengineering. Full and partial Trail Blazer Scholarships are available on a first-come, first-served basis." },
+  { name:"University of Kansas: Summer Venture in Business", college:"University of Kansas", grades:["11","12"], areas:["Business Focus"], deadline:"February 13, 2026", cost:"$50", aid:"Full Scholarship", url:"https://business.ku.edu/undergraduate-programs/summer-venture-business", rolling:false , desc:"A week-long pre-college business academy at the University of Kansas School of Business for rising 11th and 12th graders, with priority given to first-generation, Title I, and rural students. Fellows explore business topics, campus life, and career pathways — with the $50 participation fee waived for students with financial need." },
+  { name:"Notre Dame: Leadership Seminars", college:"University of Notre Dame", grades:["12"], areas:["Leadership Focus","College Credit"], deadline:"January 21, 2026", cost:"$225", aid:"Scholarships available", url:"https://precollege.nd.edu/leadership-seminars/", rolling:false , desc:"A competitive, 10-day program on Notre Dame's campus for rising 12th graders who demonstrate strong leadership in their communities, with approximately 150 students admitted annually. Tuition, housing, and meals are covered, and students may earn one transferable college credit upon completion." },
+  { name:"Notre Dame: Summer Scholars", college:"University of Notre Dame", grades:["11","12"], areas:["Interdisciplinary focus","College Credit"], deadline:"February 18, 2026", cost:"$4,900", aid:"Scholarships available", url:"https://precollege.nd.edu/summer-scholars/", rolling:false , desc:"A two-week residential program at Notre Dame where rising 11th and 12th graders take a college-level course taught by Notre Dame faculty in small, high-attention-setting classes. Students experience authentic college academics, earn potential transferable credit, and enjoy the full social and cultural life of Notre Dame's campus." },
+  { name:"USC: Bovard Scholars", college:"University of Southern California", grades:["12"], areas:["College Readiness","Career Preparation"], deadline:"January 16, 2026", cost:"$0", aid:"Full Scholarship", url:"https://bovardscholars.usc.edu/", rolling:false , desc:"A year-long hybrid program at USC for high-achieving rising seniors with financial need, providing expert admissions guidance, financial aid coaching, ACT prep, and career exploration to help students gain admission to the nation's top universities. The program is completely free — USC even covers transportation for students outside Southern California." },
+  { name:"UT Austin: Academy for All", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science","Machine Learning"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/all", rolling:false , desc:"A free, week-long residential CS program at UT Austin for rising 11th and 12th graders, offering tracks in Arduino microcontrollers and Python/machine learning. Fellows live on campus, connect with current UT students, and experience college life — with travel scholarships of up to $500 available." },
+  { name:"UT Austin: Academy for Women", college:"University of Texas at Austin", grades:["11","12"], areas:["Computer Science"], deadline:"December 22, 2025", cost:"$0", aid:"Full Scholarship", url:"https://www.cs.utexas.edu/engage/outreach/academies/women", rolling:false , desc:"A free, week-long residential program at UT Austin for rising 11th and 12th grade women, focusing on coding in C++, project management, and teamwork — with special attention to the impact and visibility of women in tech. Housing, meals, and all materials are included, with travel scholarships available." },
+  { name:"UW–Madison: Accelerated Learning Program (ALP)", college:"University of Wisconsin–Madison", grades:["10","11","12"], areas:["Interdisciplinary focus"], deadline:"May 1, 2026", cost:"$4,750", aid:"Full Scholarship", url:"https://precollege.wisc.edu/accelerated-learning-program/", rolling:true , desc:"A three-week intensive residential program at the University of Wisconsin–Madison where students from the U.S. and around the world engage in one fast-paced, hands-on, non-credit course spanning advanced topics in their chosen field. Rolling admissions through May 1 — with full scholarships for Wisconsin residents and partial aid for others." },
+  { name:"University of Wyoming: Summer HSI", college:"University of Wyoming", grades:["11"], areas:["Interdisciplinary focus","College Readiness"], deadline:"February 8, 2026", cost:"$325", aid:"None listed", url:"https://www.uwyo.edu/hsi/", rolling:false , desc:"A three-week residential program at the University of Wyoming exclusively for Wyoming resident rising 11th graders, where scholars take college classes, live in the dorms, and participate in community service and campus activities. The program covers room, board, and supplies — students pay just a $325 activity fee." },
+  { name:"WashU: Rural Scholars Academy", college:"Washington University in St. Louis", grades:["11"], areas:["College Readiness","Leadership Focus"], deadline:"March 1, 2026", cost:"$0", aid:"Full Scholarship", url:"https://admissions.washu.edu/heartland-initiative/heartland-summer-program/", rolling:false , desc:"A fully funded, week-long residential program at Washington University in St. Louis for rising 11th graders from rural and small-town communities, covering leadership, academic skills, and college admissions with guidance from WashU admissions officers. All costs — including housing, meals, and activities — are paid through a generous gift." },
+  { name:"Yale: Young Global Scholars (YYGS)", college:"Yale University", grades:["11","12"], areas:["Interdisciplinary focus"], deadline:"January 7, 2026", cost:"$7,000", aid:"Full Scholarship", url:"https://globalscholars.yale.edu/", rolling:false , desc:"Yale Young Global Scholars is a two-week residential academic enrichment program on Yale's historic campus bringing together outstanding high school students from 150+ countries. Students immerse themselves in a global learning community with interdisciplinary coursework and need-based financial aid covering up to the full cost of tuition." },
 
   // ── NEW PROGRAMS FROM DEEP DIVE ──
 
   // RESIDENTIAL SUMMER PROGRAMS
-  { name:"Cornell: Precollege Studies Summer Residential", college:"Cornell University", grades:["10","11","12"], areas:["STEM Focus","Business Focus","Humanities or Liberal Arts Focus","Engineering","Visual or Performing Arts Focus","Medicine"], deadline:"May 19, 2026", cost:"~$5,040/course + residential fees", aid:"Scholarships available", url:"https://sce.cornell.edu/precollege/residential", rolling:true },
-  { name:"Georgetown: Summer College & College Prep", college:"Georgetown University", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Business Focus","STEM Focus","Medicine","Political Focus"], deadline:"April 15, 2026", cost:"$3,725–$12,161", aid:"Scholarships available", url:"https://summer.georgetown.edu/", rolling:true },
-  { name:"Vanderbilt Summer Academy (VSA)", college:"Vanderbilt University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Visual or Performing Arts Focus"], deadline:"Rolling (until full)", cost:"$2,000–$3,000", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/for-students/vsa/", rolling:true },
-  { name:"Vanderbilt Summer Institutes (VSI)", college:"Vanderbilt University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","College Readiness"], deadline:"Rolling (until full)", cost:"$5,750/session", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/vsi/", rolling:true },
-  { name:"Tufts University Pre-College Programs", college:"Tufts University", grades:["9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","College Readiness"], deadline:"Rolling — various sessions", cost:"$3,000–$8,000+", aid:"Scholarships available", url:"https://universitycollege.tufts.edu/pre-college/academics/high-school-summer-programs", rolling:true },
-  { name:"Rice University Pre-College Program", college:"Rice University", grades:["9","10","11","12"], areas:["STEM Focus","Engineering","Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"Rolling", cost:"Varies by course", aid:"Scholarships available", url:"https://precollege.rice.edu/", rolling:true },
-  { name:"Johns Hopkins: Engineering Innovation (EI)", college:"Johns Hopkins University", grades:["10","11","12"], areas:["Engineering","STEM Focus"], deadline:"Rolling (through ~May 17, 2026)", cost:"~$3,575 + residential fees", aid:"Scholarships available", url:"https://ei.jhu.edu/costs-and-financial-aid/scholarships/", rolling:true },
-  { name:"Emory University Pre-College Program", college:"Emory University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","Medicine","Social Science Interest"], deadline:"May 1, 2026", cost:"$3,000–$5,500/session", aid:"Scholarships available", url:"https://precollege.emory.edu/", rolling:true },
-  { name:"Howard University: Pre-Business Program (PBP)", college:"Howard University", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Computer Science","Actuarial Science"], deadline:"April 3, 2026", cost:"$2,000 (Accounting track FREE)", aid:"Full Scholarship", url:"https://business.howard.edu/undergraduate/student-life/high-school-summer-enrichment-pre-business-program", rolling:false },
-  { name:"Spelman College: College Prep Institute (CPI)", college:"Spelman College", grades:["9","10"], areas:["College Readiness","Leadership Focus"], deadline:"Rolling", cost:"$2,900–$3,150", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/college-prep-institute.html", rolling:true },
-  { name:"Spelman College: Early College Program (ECP)", college:"Spelman College", grades:["11"], areas:["College Credit","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"Rolling", cost:"$4,400–$4,500", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/early-college-program.html", rolling:true },
-  { name:"AUC Art History & Curatorial Studies Early College", college:"Spelman College / AUC Art Collective", grades:["11","12"], areas:["Visual or Performing Arts Focus","African American Studies"], deadline:"Rolling (check website)", cost:"$0", aid:"Full Scholarship", url:"https://aucartcollective.org/programs-courses/early-college-program/", rolling:true },
-  { name:"Hampton University: Pre-College Summer Program", college:"Hampton University", grades:["11","12"], areas:["College Readiness","STEM Focus"], deadline:"Rolling", cost:"Contact program", aid:"Scholarships available", url:"https://home.hamptonu.edu/academics/summer/precollege/", rolling:true },
-  { name:"Xavier University of Louisiana: SOAR X", college:"Xavier University of Louisiana", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus"], deadline:"April 27, 2026", cost:"Includes housing & meals", aid:"Scholarships available", url:"https://www.xula.edu/pre-college-programs/precollege-soarx.html", rolling:false },
-  { name:"TMCF SOAR (Thurgood Marshall College Fund)", college:"Multiple HBCU Campuses", grades:["11"], areas:["College Readiness","Leadership Focus","Career Preparation"], deadline:"Rolling (varies by campus)", cost:"$0", aid:"Full Scholarship", url:"https://tmcf.org/programs/tmcf-soar/", rolling:true },
-  { name:"Barnard College Pre-College Programs", college:"Barnard College", grades:["10","11","12"], areas:["STEM Focus","Writing Focus","Humanities or Liberal Arts Focus","Entrepreneurship","Environmental or Sustainability Focus"], deadline:"April 15, 2026", cost:"$7,000–$9,000+", aid:"Scholarships available", url:"https://precollege.barnard.edu/summerprograms", rolling:true },
-  { name:"Purdue University: Summer College for High School Students", college:"Purdue University", grades:["11","12"], areas:["Engineering","STEM Focus","Business Focus","Medicine"], deadline:"April 1, 2026", cost:"~$500+/credit hour", aid:"Scholarships available", url:"https://www.purdue.edu/summer-high-school/", rolling:false },
-  { name:"Indiana University: Holland Summer Enrichment in Biology", college:"Indiana University Bloomington", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"April 10, 2026", cost:"Registration fee (TBD)", aid:"Full Scholarship", url:"https://biology.indiana.edu/about/outreach/k-12-students/holland-summer-science-programs/holland-sep.html", rolling:false },
-  { name:"University of Iowa: Tippie Gateway Summer Program", college:"University of Iowa", grades:["12"], areas:["Business Focus","Entrepreneurship","Leadership Focus","College Readiness"], deadline:"April 17, 2026", cost:"$0", aid:"Full Scholarship", url:"https://tippie.uiowa.edu/undergraduate/admissions/high-school-students/gateway-summer-program", rolling:false },
-  { name:"University of Pittsburgh: Experiencing Architecture", college:"University of Pittsburgh", grades:["9","10","11","12"], areas:["Architecture","Visual or Performing Arts Focus"], deadline:"April 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.arch.pitt.edu/experiencing-architecture-program", rolling:false },
-  { name:"UNC Chapel Hill: Project Uplift", college:"University of North Carolina at Chapel Hill", grades:["12"], areas:["College Readiness"], deadline:"~April 5, 2026", cost:"$50 (waivers available)", aid:"Full Scholarship", url:"https://cheop.unc.edu/pre-college-programs/project-uplift-and-uplift-plus/", rolling:false },
-  { name:"Ohio State: Arts & Sciences Summer Exploration", college:"The Ohio State University", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"May 1, 2026", cost:"$550/course", aid:"Scholarships available", url:"https://artsandsciences.osu.edu/future-students/arts-and-sciences-summer-exploration-program", rolling:false },
-  { name:"Rutgers: Pre-College Summer Academies", college:"Rutgers University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","College Readiness","Engineering","Political Focus"], deadline:"Early May 2026", cost:"Varies", aid:"Scholarships available", url:"https://precollegesummer.rutgers.edu/academies", rolling:false },
-  { name:"Michigan Math & Science Scholars (MMSS)", college:"University of Michigan", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"Rolling (until full)", cost:"$1,300 + $1,000 residential/session", aid:"Scholarships available", url:"https://sites.lsa.umich.edu/mmss/", rolling:true },
-  { name:"Oklahoma STEM Summer Academies", college:"Various Oklahoma Colleges", grades:["8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (varies by academy)", cost:"$0", aid:"Full Scholarship", url:"https://okhighered.org/summer-academies/", rolling:true },
-  { name:"LSU Pre-College Summer Programs", college:"Louisiana State University", grades:["9","10","11","12"], areas:["Engineering","STEM Focus","Visual or Performing Arts Focus"], deadline:"Rolling", cost:"Varies by program", aid:"Scholarships available", url:"https://precollege.lsu.edu/", rolling:true },
-  { name:"SUNY New Paltz: Summer Honors Program", college:"SUNY New Paltz", grades:["11"], areas:["College Readiness","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus"], deadline:"Rolling (notifications mid-May)", cost:"$300 (board FREE)", aid:"Full Scholarship", url:"https://www.newpaltz.edu/summer-honors/", rolling:true },
-  { name:"MICA Pre-College Summer Intensive", college:"Maryland Institute College of Art", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","College Credit"], deadline:"April 30, 2026", cost:"$2,725–$3,850", aid:"Scholarships available", url:"https://www.mica.edu/academics/youth-and-teen-programs/programs-for-teens/precollege/", rolling:false },
-  { name:"SCAD Summer Seminars", college:"Savannah College of Art and Design", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"April 13, 2026 (scholarship)", cost:"$100 registration + program fee", aid:"Scholarships available", url:"https://www.scad.edu/academics/pre-college-programs/scad-summer-seminars", rolling:true },
-  { name:"SAIC Early College Summer Institute", college:"School of the Art Institute of Chicago", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$1,908/week + housing", aid:"Scholarships available", url:"https://www.saic.edu/high-school-programs/early-college-program-summer-institute", rolling:true },
-  { name:"Berklee College of Music: Aspire Five-Week Intensive", college:"Berklee College of Music", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"June 1, 2026", cost:"$5,430 tuition + $4,200 housing (optional)", aid:"Scholarships available", url:"https://summer.berklee.edu/programs/aspire-five-week-music-performance-intensive", rolling:false },
-  { name:"Interlochen Arts Camp: High School Division", college:"Interlochen Center for the Arts", grades:["9","10","11","12"], areas:["Visual or Performing Arts Focus","Writing Focus","Film & Entertainment"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$2,050–$10,350", aid:"Scholarships available", url:"https://www.interlochen.org/summer-camp/admission/tuition-and-financial-aid", rolling:true },
-  { name:"Pratt Institute: PreCollege Summer Intensive", college:"Pratt Institute", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Writing Focus"], deadline:"Rolling (accepting if space available)", cost:"~$8,000+ residential", aid:"Scholarships available", url:"https://www.pratt.edu/continuing-and-professional-studies/precollege/summer-precollege/", rolling:true },
-  { name:"RISD Pre-College Program", college:"Rhode Island School of Design", grades:["10","11"], areas:["Visual or Performing Arts Focus"], deadline:"Rolling", cost:"$9,595–$12,495", aid:"Scholarships available", url:"https://precollege.risd.edu/", rolling:true },
-  { name:"Parsons/New School: Summer Intensive Studies", college:"Parsons School of Design / The New School", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Entrepreneurship"], deadline:"June 1, 2026 (commuter)", cost:"$5,610 tuition + fees", aid:"Scholarships available", url:"https://cpe.newschool.edu/youth-and-pre-college/parsons-new-york-summer-intensive-studies/", rolling:true },
-  { name:"Oberlin Conservatory: Baroque Performance Institute", college:"Oberlin College and Conservatory", grades:["10","11","12"], areas:["Visual or Performing Arts Focus"], deadline:"May 1, 2026", cost:"~$1,900", aid:"Scholarships available", url:"https://www.oberlin.edu/summer-programs/bpi", rolling:false },
-  { name:"Wake Forest: Summer Immersion Program", college:"Wake Forest University", grades:["9","10","11","12"], areas:["Medicine","Entrepreneurship","Computer Science","Business Focus","Political Focus","Leadership Focus"], deadline:"Rolling (some institutes waitlisted)", cost:"$3,500/week", aid:"Scholarships available", url:"https://immersion.summer.wfu.edu/", rolling:true },
-  { name:"Great Books Summer Program (at Amherst)", college:"Great Books Summer Program / Amherst College", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"Rolling", cost:"$1,500–$2,500/week", aid:"Scholarships available", url:"https://greatbookssummer.com/campus/amherst/", rolling:true },
-  { name:"Babson College: Blank School Summer Program", college:"Babson College", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Film & Entertainment"], deadline:"Rolling (check website)", cost:"Varies", aid:"Scholarships available", url:"https://www.babson.edu/summer-at-babson/high-school-learners/the-arthur-m-blank-school-summer-program/", rolling:true },
-  { name:"Georgia Tech: Summer Institute", college:"Georgia Institute of Technology", grades:["11"], areas:["STEM Focus","College Readiness"], deadline:"Check website (TBD)", cost:"$0", aid:"Full Scholarship", url:"https://expandedlearning.ceismc.gatech.edu/summer-institute", rolling:false },
+  { name:"Cornell: Precollege Studies Summer Residential", college:"Cornell University", grades:["10","11","12"], areas:["STEM Focus","Business Focus","Humanities or Liberal Arts Focus","Engineering","Visual or Performing Arts Focus","Medicine"], deadline:"May 19, 2026", cost:"~$5,040/course + residential fees", aid:"Scholarships available", url:"https://sce.cornell.edu/precollege/residential", rolling:true , desc:"Cornell's flagship pre-college program offers 50+ college-credit courses spanning architecture, business, engineering, health, and the humanities across 3-, 6-, and 8-week sessions on Cornell's stunning Ithaca campus. Rising 10th–12th graders earn transferable college credits while living independently on one of America's most beautiful campuses — need-based scholarships are available." },
+  { name:"Georgetown: Summer College & College Prep", college:"Georgetown University", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Business Focus","STEM Focus","Medicine","Political Focus"], deadline:"April 15, 2026", cost:"$3,725–$12,161", aid:"Scholarships available", url:"https://summer.georgetown.edu/", rolling:true , desc:"Georgetown's summer programs let rising 9th–12th graders take college-level courses in international relations, government, pre-med, law, and more at one of Washington, DC's most prestigious universities. Multiple session lengths are available with rolling admission — limited need-based scholarships are offered." },
+  { name:"Vanderbilt Summer Academy (VSA)", college:"Vanderbilt University", grades:["7","8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Visual or Performing Arts Focus"], deadline:"Rolling (until full)", cost:"$2,000–$3,000", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/for-students/vsa/", rolling:true , desc:"Vanderbilt's week-long summer academies bring together rising 7th–12th graders for immersive, topic-focused academic experiences taught by Vanderbilt faculty across a range of disciplines. Need-based financial aid is available, and partner organizations offer full-tuition scholarships for qualifying students." },
+  { name:"Vanderbilt Summer Institutes (VSI)", college:"Vanderbilt University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","College Readiness"], deadline:"Rolling (until full)", cost:"$5,750/session", aid:"Scholarships available", url:"https://pty.vanderbilt.edu/vsi/", rolling:true , desc:"Two-week intensive residential programs at Vanderbilt for rising 11th and 12th graders seeking college-level rigor with direct faculty access across three summer sessions. VSI is designed for students ready for a serious academic challenge — need-based aid and partner scholarships are available to reduce the cost." },
+  { name:"Tufts University Pre-College Programs", college:"Tufts University", grades:["9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","College Readiness"], deadline:"Rolling — various sessions", cost:"$3,000–$8,000+", aid:"Scholarships available", url:"https://universitycollege.tufts.edu/pre-college/academics/high-school-summer-programs", rolling:true , desc:"Tufts offers a range of residential, commuter, and online pre-college programs for rising 9th–12th graders across STEM, humanities, social sciences, and business — with some programs covering up to 100% of program fees through need-based scholarships distributed on a rolling basis starting in February." },
+  { name:"Rice University Pre-College Program", college:"Rice University", grades:["9","10","11","12"], areas:["STEM Focus","Engineering","Humanities or Liberal Arts Focus","Social Science Interest"], deadline:"Rolling", cost:"Varies by course", aid:"Scholarships available", url:"https://precollege.rice.edu/", rolling:true , desc:"Rice University's pre-college offerings give high schoolers access to courses taught by Rice faculty in STEM, engineering, humanities, and social sciences — with no transcript or recommendation required for many courses. Need-based scholarships are available for students demonstrating high potential and inability to pay full tuition." },
+  { name:"Johns Hopkins: Engineering Innovation (EI)", college:"Johns Hopkins University", grades:["10","11","12"], areas:["Engineering","STEM Focus"], deadline:"Rolling (through ~May 17, 2026)", cost:"~$3,575 + residential fees", aid:"Scholarships available", url:"https://ei.jhu.edu/costs-and-financial-aid/scholarships/", rolling:true , desc:"A rigorous engineering program at Johns Hopkins where rising 10th–12th graders earn 3 transferable JHU credits in tracks like Sustainable Energy Engineering or Biomedical Engineering Innovation — available in residential, commuter, hybrid, and online formats. Need-based scholarships averaging ~$3,400 are available for commuter and online students, with priority given to Baltimore and DC public school students." },
+  { name:"Emory University Pre-College Program", college:"Emory University", grades:["11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Business Focus","Medicine","Social Science Interest"], deadline:"May 1, 2026", cost:"$3,000–$5,500/session", aid:"Scholarships available", url:"https://precollege.emory.edu/", rolling:true , desc:"Emory's pre-college program offers 100+ courses across medicine, psychology, business, STEM, creative writing, and forensics for rising 11th and 12th graders in residential, commuter, and online formats. Rolling admission through May 1 — contact the program directly to inquire about need-based financial aid for the current cycle." },
+  { name:"Howard University: Pre-Business Program (PBP)", college:"Howard University", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Computer Science","Actuarial Science"], deadline:"April 3, 2026", cost:"$2,000 (Accounting track FREE)", aid:"Full Scholarship", url:"https://business.howard.edu/undergraduate/student-life/high-school-summer-enrichment-pre-business-program", rolling:false , desc:"A week-long residential pre-business program at Howard University — one of the nation's premier HBCUs — offering six specialized tracks including Finance, Entrepreneurship, Cybersecurity, Music Business, and NIL/Sports Business. The Accounting track is completely free through the ACAP sponsorship, and need-based tuition support is available for other tracks." },
+  { name:"Spelman College: College Prep Institute (CPI)", college:"Spelman College", grades:["9","10"], areas:["College Readiness","Leadership Focus"], deadline:"Rolling", cost:"$2,900–$3,150", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/college-prep-institute.html", rolling:true , desc:"A two-week residential summer program at Spelman College — one of the nation's top HBCUs — for rising 9th and 10th grade young women focused on SAT prep, career exploration, essay writing, and financial literacy. Need-based financial assistance is available through the program." },
+  { name:"Spelman College: Early College Program (ECP)", college:"Spelman College", grades:["11"], areas:["College Credit","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"Rolling", cost:"$4,400–$4,500", aid:"Scholarships available", url:"https://www.spelman.edu/academics/summer-programs/early-college-program.html", rolling:true , desc:"A four-week residential program at Spelman College for rising 11th grade women to take actual college courses — including English 101, Biology of Women, and Critical Thinking — earning transferable credits. The program offers an authentic taste of HBCU college life with financial assistance available." },
+  { name:"AUC Art History & Curatorial Studies Early College", college:"Spelman College / AUC Art Collective", grades:["11","12"], areas:["Visual or Performing Arts Focus","African American Studies"], deadline:"Rolling (check website)", cost:"$0", aid:"Full Scholarship", url:"https://aucartcollective.org/programs-courses/early-college-program/", rolling:true , desc:"A fully funded four-week residential program at Spelman College for rising 11th and 12th grade students of color to study art history and curatorial practice through museum visits, hands-on projects, and faculty mentorship. All costs — tuition, housing, meals, and materials — are completely covered." },
+  { name:"Hampton University: Pre-College Summer Program", college:"Hampton University", grades:["11","12"], areas:["College Readiness","STEM Focus"], deadline:"Rolling", cost:"Contact program", aid:"Scholarships available", url:"https://home.hamptonu.edu/academics/summer/precollege/", rolling:true , desc:"A five-week residential program at Hampton University — a historic HBCU in Virginia — for rising 11th and 12th graders to experience college academics and campus life while building math skills, test-taking strategies, and career awareness. The program prioritizes students whose potential has been limited by economic or educational barriers." },
+  { name:"Xavier University of Louisiana: SOAR X", college:"Xavier University of Louisiana", grades:["11","12"], areas:["Humanities or Liberal Arts Focus","College Credit","STEM Focus"], deadline:"April 27, 2026", cost:"Includes housing & meals", aid:"Scholarships available", url:"https://www.xula.edu/pre-college-programs/precollege-soarx.html", rolling:false , desc:"A four-week residential pre-college program at Xavier University of Louisiana — the only HBCU College of Pharmacy in the country — for rising 11th and 12th graders to earn 3 college credits, explore New Orleans culture, and build college readiness skills. Need-based aid and the Gilead Sponsorship are available for qualifying local students." },
+  { name:"TMCF SOAR (Thurgood Marshall College Fund)", college:"Multiple HBCU Campuses", grades:["11"], areas:["College Readiness","Leadership Focus","Career Preparation"], deadline:"Rolling (varies by campus)", cost:"$0", aid:"Full Scholarship", url:"https://tmcf.org/programs/tmcf-soar/", rolling:true , desc:"A free, week-long residential program hosted at 16+ HBCU campuses nationwide for rising 11th graders, designed to help students explore HBCU campuses, build college readiness skills, and navigate the FAFSA and financial aid process. All housing, meals, and activities are covered — students are responsible only for their own transportation." },
+  { name:"Barnard College Pre-College Programs", college:"Barnard College", grades:["10","11","12"], areas:["STEM Focus","Writing Focus","Humanities or Liberal Arts Focus","Entrepreneurship","Environmental or Sustainability Focus"], deadline:"April 15, 2026", cost:"$7,000–$9,000+", aid:"Scholarships available", url:"https://precollege.barnard.edu/summerprograms", rolling:true , desc:"Barnard's summer programs bring rising 10th–12th grade students to New York City's Upper West Side for 2-to-6-week sessions in tracks like STEMinist, Global Humanities, Entrepreneurship, and Pre-Baccalaureate (3 credits). Rolling admission through April 15 — limited need-based aid is available, though the priority financial aid deadline has passed." },
+  { name:"Purdue University: Summer College for High School Students", college:"Purdue University", grades:["11","12"], areas:["Engineering","STEM Focus","Business Focus","Medicine"], deadline:"April 1, 2026", cost:"~$500+/credit hour", aid:"Scholarships available", url:"https://www.purdue.edu/summer-high-school/", rolling:false , desc:"Purdue's Summer College lets rising 11th and 12th graders take actual for-credit courses in 31 fields — from Nuclear Engineering to Philosophy — on one of America's top engineering campuses. Rolling admission closes April 1, with course-specific scholarships, application fee waivers, and over $4M in summer financial aid available." },
+  { name:"Indiana University: Holland Summer Enrichment in Biology", college:"Indiana University Bloomington", grades:["9","10","11","12"], areas:["STEM Focus"], deadline:"April 10, 2026", cost:"Registration fee (TBD)", aid:"Full Scholarship", url:"https://biology.indiana.edu/about/outreach/k-12-students/holland-summer-science-programs/holland-sep.html", rolling:false , desc:"A week-long residential biology program at Indiana University Bloomington for rising high schoolers — with priority for underrepresented students — to explore genetics, evolution, environmental biology, and molecular biology alongside IU researchers. Full-attendance scholarships are available through IU's Community and School Partnerships program." },
+  { name:"University of Iowa: Tippie Gateway Summer Program", college:"University of Iowa", grades:["12"], areas:["Business Focus","Entrepreneurship","Leadership Focus","College Readiness"], deadline:"April 17, 2026", cost:"$0", aid:"Full Scholarship", url:"https://tippie.uiowa.edu/undergraduate/admissions/high-school-students/gateway-summer-program", rolling:false , desc:"A completely free, week-long residential business program at the University of Iowa's Tippie College of Business for rising seniors, sponsored by PwC and John Deere. Admitted students also become eligible for a full-tuition competitive scholarship to the Tippie College of Business — a life-changing opportunity at zero cost." },
+  { name:"University of Pittsburgh: Experiencing Architecture", college:"University of Pittsburgh", grades:["9","10","11","12"], areas:["Architecture","Visual or Performing Arts Focus"], deadline:"April 3, 2026", cost:"$0", aid:"Full Scholarship", url:"https://www.arch.pitt.edu/experiencing-architecture-program", rolling:false , desc:"A completely free, three-week day program at the University of Pittsburgh for high schoolers to explore architecture, urban design, and the built environment alongside Pitt faculty and students. Running Monday–Friday from 9am–3pm in July, the program has no application fee and no cost to attend." },
+  { name:"UNC Chapel Hill: Project Uplift", college:"University of North Carolina at Chapel Hill", grades:["12"], areas:["College Readiness"], deadline:"~April 5, 2026", cost:"$50 (waivers available)", aid:"Full Scholarship", url:"https://cheop.unc.edu/pre-college-programs/project-uplift-and-uplift-plus/", rolling:false , desc:"A residential college access program at UNC Chapel Hill for rising seniors — especially those who are first-generation, rural, or from underrepresented backgrounds — to experience campus life, learn about the admissions process, and build community. The program charges just a $50 fee with need-based waivers available." },
+  { name:"Ohio State: Arts & Sciences Summer Exploration", college:"The Ohio State University", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Humanities or Liberal Arts Focus","STEM Focus"], deadline:"May 1, 2026", cost:"$550/course", aid:"Scholarships available", url:"https://artsandsciences.osu.edu/future-students/arts-and-sciences-summer-exploration-program", rolling:false , desc:"Week-long day courses at The Ohio State University for students entering 10th–12th grade, exploring topics like Music and Mind, Eco-Printmaking, and more through the College of Arts and Sciences. The fee of $550 per course covers materials and lunch, and limited partial financial assistance may be available on the application." },
+  { name:"Rutgers: Pre-College Summer Academies", college:"Rutgers University", grades:["10","11","12"], areas:["STEM Focus","Leadership Focus","College Readiness","Engineering","Political Focus"], deadline:"Early May 2026", cost:"Varies", aid:"Scholarships available", url:"https://precollegesummer.rutgers.edu/academies", rolling:false , desc:"Week-long residential and commuter academies at Rutgers University in New Jersey for students ages 16–18 across disciplines including Astronomy, Physical Therapy, Mock Trial, Marketing, and Leadership. Scholarship options are available through the application for eligible students." },
+  { name:"Michigan Math & Science Scholars (MMSS)", college:"University of Michigan", grades:["10","11","12"], areas:["Mathematics","STEM Focus"], deadline:"Rolling (until full)", cost:"$1,300 + $1,000 residential/session", aid:"Scholarships available", url:"https://sites.lsa.umich.edu/mmss/", rolling:true , desc:"Two-week residential sessions at the University of Michigan for rising 10th–12th graders exploring advanced topics in mathematics, physics, ecology, chemistry, statistics, and psychology with U-M faculty. Rolling admission across three summer sessions — limited need-based aid is available with a redacted tax return submission." },
+  { name:"Oklahoma STEM Summer Academies", college:"Various Oklahoma Colleges", grades:["8","9","10","11","12"], areas:["STEM Focus","Engineering"], deadline:"Rolling (varies by academy)", cost:"$0", aid:"Full Scholarship", url:"https://okhighered.org/summer-academies/", rolling:true , desc:"Sixteen completely free STEM academies hosted at Oklahoma colleges and universities for rising 8th–12th graders, covering topics from nanotechnology to renewable energy in 4-day to 2-week formats. Every academy is fully funded by the Oklahoma State Regents for Higher Education — open to students statewide." },
+  { name:"LSU Pre-College Summer Programs", college:"Louisiana State University", grades:["9","10","11","12"], areas:["Engineering","STEM Focus","Visual or Performing Arts Focus"], deadline:"Rolling", cost:"Varies by program", aid:"Scholarships available", url:"https://precollege.lsu.edu/", rolling:true , desc:"A collection of residential and day pre-college programs at Louisiana State University in Baton Rouge for rising 9th–12th graders, spanning engineering, architecture, game design, sound engineering, and esports. Program costs and financial aid vary by track — some programs including the Virtual Math Circle are offered at no cost." },
+  { name:"SUNY New Paltz: Summer Honors Program", college:"SUNY New Paltz", grades:["11"], areas:["College Readiness","Humanities or Liberal Arts Focus","Visual or Performing Arts Focus"], deadline:"Rolling (notifications mid-May)", cost:"$300 (board FREE)", aid:"Full Scholarship", url:"https://www.newpaltz.edu/summer-honors/", rolling:true , desc:"A fully residential, week-long program at SUNY New Paltz for rising seniors focused on college readiness across tracks including Media, Sustainability, Theatre, and Financial Literacy — with tuition and board provided at no cost. Students pay just $300 for food and activities, and participants earn conditional acceptance to SUNY New Paltz." },
+  { name:"MICA Pre-College Summer Intensive", college:"Maryland Institute College of Art", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","College Credit"], deadline:"April 30, 2026", cost:"$2,725–$3,850", aid:"Scholarships available", url:"https://www.mica.edu/academics/youth-and-teen-programs/programs-for-teens/precollege/", rolling:false , desc:"A 2-to-4-week residential and commuter pre-college art program at the Maryland Institute College of Art in Baltimore for students ages 15–17, offering studio courses and the opportunity to earn 1.5–3 college credits. Need-based financial assistance is available, with priority given to early applicants." },
+  { name:"SCAD Summer Seminars", college:"Savannah College of Art and Design", grades:["9","10","11"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"April 13, 2026 (scholarship)", cost:"$100 registration + program fee", aid:"Scholarships available", url:"https://www.scad.edu/academics/pre-college-programs/scad-summer-seminars", rolling:true , desc:"One-to-four-week residential and commuter pre-college programs at Savannah College of Art and Design campuses in Atlanta and Savannah, GA for rising 9th–11th graders interested in art, design, animation, fashion, film, and photography. Limited merit-based scholarships are available with a deadline of April 13." },
+  { name:"SAIC Early College Summer Institute", college:"School of the Art Institute of Chicago", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$1,908/week + housing", aid:"Scholarships available", url:"https://www.saic.edu/high-school-programs/early-college-program-summer-institute", rolling:true , desc:"The School of the Art Institute of Chicago offers 1-, 2-, and 4-week residential and commuter sessions for students ages 15–18 who have completed sophomore year, covering painting, sculpture, fashion, animation, photography, and more. Need-based aid is available for households under ~$60,000, alongside merit scholarships of up to $1,200." },
+  { name:"Berklee College of Music: Aspire Five-Week Intensive", college:"Berklee College of Music", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Film & Entertainment"], deadline:"June 1, 2026", cost:"$5,430 tuition + $4,200 housing (optional)", aid:"Scholarships available", url:"https://summer.berklee.edu/programs/aspire-five-week-music-performance-intensive", rolling:false , desc:"A rigorous five-week residential music performance and production program at Berklee College of Music in Boston for students ages 15 and up, culminating in an audition week for Berklee's significant undergraduate scholarship opportunities. Merit-based full and partial scholarships are available specifically for the Aspire program." },
+  { name:"Interlochen Arts Camp: High School Division", college:"Interlochen Center for the Arts", grades:["9","10","11","12"], areas:["Visual or Performing Arts Focus","Writing Focus","Film & Entertainment"], deadline:"Rolling (priority passed; accepting as space allows)", cost:"$2,050–$10,350", aid:"Scholarships available", url:"https://www.interlochen.org/summer-camp/admission/tuition-and-financial-aid", rolling:true , desc:"The nation's most prestigious residential arts camp — hosted on 1,200 acres in northern Michigan — offers high school students 1-to-6-week sessions in music, visual art, theatre, dance, film, and creative writing with world-class faculty. 85% of students who applied for aid received it in 2025, with merit and need-based awards available." },
+  { name:"Pratt Institute: PreCollege Summer Intensive", college:"Pratt Institute", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Writing Focus"], deadline:"Rolling (accepting if space available)", cost:"~$8,000+ residential", aid:"Scholarships available", url:"https://www.pratt.edu/continuing-and-professional-studies/precollege/summer-precollege/", rolling:true , desc:"A four-week residential and commuter pre-college program at Pratt Institute in Brooklyn, NY for students ages 16–18 to explore fine arts, graphic design, fashion, architecture, illustration, and animation at the college level — earning 4 transferable credits. Full tuition and room/board scholarships are available for households earning under $60,000." },
+  { name:"RISD Pre-College Program", college:"Rhode Island School of Design", grades:["10","11"], areas:["Visual or Performing Arts Focus"], deadline:"Rolling", cost:"$9,595–$12,495", aid:"Scholarships available", url:"https://precollege.risd.edu/", rolling:true , desc:"A five-week residential and commuter pre-college program at the Rhode Island School of Design in Providence for students ages 16–18 who have finished 10th or 11th grade, exploring 21 majors through studio courses and critique. Rolling admissions — partial scholarships for demonstrated need are available, though the internal scholarship deadline has passed." },
+  { name:"Parsons/New School: Summer Intensive Studies", college:"Parsons School of Design / The New School", grades:["10","11","12"], areas:["Visual or Performing Arts Focus","Architecture","Entrepreneurship"], deadline:"June 1, 2026 (commuter)", cost:"$5,610 tuition + fees", aid:"Scholarships available", url:"https://cpe.newschool.edu/youth-and-pre-college/parsons-new-york-summer-intensive-studies/", rolling:true , desc:"Three-week residential and commuter sessions at Parsons School of Design in New York City for students ages 16–18 interested in fashion, architecture, graphic design, photography, UX design, and portfolio development. Rolling admission through June 1 for commuters — limited tuition scholarships are available." },
+  { name:"Oberlin Conservatory: Baroque Performance Institute", college:"Oberlin College and Conservatory", grades:["10","11","12"], areas:["Visual or Performing Arts Focus"], deadline:"May 1, 2026", cost:"~$1,900", aid:"Scholarships available", url:"https://www.oberlin.edu/summer-programs/bpi", rolling:false , desc:"A two-week residential program at Oberlin College and Conservatory for students ages 15 and up who play baroque instruments or voice, featuring master classes, recitals, and intensive performance coaching from world-class faculty. Approximately 10 high school students are admitted with half-tuition scholarships." },
+  { name:"Wake Forest: Summer Immersion Program", college:"Wake Forest University", grades:["9","10","11","12"], areas:["Medicine","Entrepreneurship","Computer Science","Business Focus","Political Focus","Leadership Focus"], deadline:"Rolling (some institutes waitlisted)", cost:"$3,500/week", aid:"Scholarships available", url:"https://immersion.summer.wfu.edu/", rolling:true , desc:"Week-long residential institutes at Wake Forest University across 20+ tracks including Medicine, AI, Entrepreneurship, Business, and Policy for rising 9th–12th graders curious about what college-level study feels like. Rolling admissions for most institutes — contact the program about outside scholarship options." },
+  { name:"Great Books Summer Program (at Amherst)", college:"Great Books Summer Program / Amherst College", grades:["9","10","11","12"], areas:["Humanities or Liberal Arts Focus","Writing Focus","Political Focus"], deadline:"Rolling", cost:"$1,500–$2,500/week", aid:"Scholarships available", url:"https://greatbookssummer.com/campus/amherst/", rolling:true , desc:"A week-long residential program at Amherst College for rising 9th–12th graders built around deep, discussion-based reading of great texts in philosophy, literature, and law — the 2026 theme is Freedom, Government & the Law. Financial aid and scholarships are available through the program." },
+  { name:"Babson College: Blank School Summer Program", college:"Babson College", grades:["11","12"], areas:["Business Focus","Entrepreneurship","Film & Entertainment"], deadline:"Rolling (check website)", cost:"Varies", aid:"Scholarships available", url:"https://www.babson.edu/summer-at-babson/high-school-learners/the-arthur-m-blank-school-summer-program/", rolling:true , desc:"A 1-to-2-week residential program at Babson College — the nation's #1 entrepreneurship school — for rising 11th and 12th graders exploring entrepreneurship, AI and business, finance, consulting, and sports management. Financial aid is available — check the program page for current details." },
+  { name:"Georgia Tech: Summer Institute", college:"Georgia Institute of Technology", grades:["11"], areas:["STEM Focus","College Readiness"], deadline:"Check website (TBD)", cost:"$0", aid:"Full Scholarship", url:"https://expandedlearning.ceismc.gatech.edu/summer-institute", rolling:false , desc:"A free, week-long residential STEM and college readiness program at Georgia Tech for rising 11th graders, offering hands-on learning experiences led by Georgia Tech faculty and students. The program is fully funded — all housing, meals, and activities are covered — though availability may be limited to students from under-resourced communities." },
 
   // VIRTUAL / HYBRID PROGRAMS
-  { name:"Girls Who Code: Pathways Program", college:"Girls Who Code", grades:["9","10","11"], areas:["Computer Science","Artificial Intelligence (AI)"], deadline:"June 14, 2026", cost:"$0", aid:"Full Scholarship", url:"https://girlswhocode.com/programs/pathways", rolling:false, type:"Virtual" },
-  { name:"Lumiere Research Scholar Program", college:"Lumiere Education", grades:["8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Computer Science"], deadline:"Rolling (four cohorts/year)", cost:"$2,990–$8,900", aid:"Scholarships available", url:"https://www.lumiere-education.com/", rolling:true, type:"Virtual" },
-  { name:"Wharton Global Youth: Pre-Baccalaureate (Online)", college:"University of Pennsylvania – Wharton", grades:["11","12"], areas:["Business Focus","Entrepreneurship"], deadline:"May 6, 2026 (Summer 2)", cost:"~$2,000+/course", aid:"Full Scholarship", url:"https://globalyouth.wharton.upenn.edu/pre-baccalaureate-program/", rolling:false, type:"Virtual" },
-  { name:"University of Iowa: Young Writers' Studio (Online)", college:"University of Iowa", grades:["9","10","11","12"], areas:["Writing Focus"], deadline:"April 14, 2026", cost:"$475/course", aid:"Scholarships available", url:"https://iyws.program.uiowa.edu/how-to-apply/online-courses", rolling:false, type:"Virtual" },
-  { name:"Kenyon Review: Young Writers Online Workshop", college:"Kenyon College / The Kenyon Review", grades:["11","12"], areas:["Writing Focus"], deadline:"April 13, 2026", cost:"$995", aid:"Scholarships available", url:"https://kenyonreview.org/event/young-writers-summer-online-workshops/", rolling:false, type:"Virtual" },
-  { name:"NSLI-Y Virtual Program (Critical Languages)", college:"U.S. Department of State / American Councils", grades:["9","10","11","12"], areas:["Language","Humanities or Liberal Arts Focus"], deadline:"~May 2026 (opens)", cost:"$0", aid:"Full Scholarship", url:"https://www.nsliforyouth.org/how-to-apply/apply/", rolling:false, type:"Virtual" },
-  { name:"UVA Northern Virginia: Inspire Summer", college:"University of Virginia Northern Virginia", grades:["10","11","12"], areas:["Business Focus","Engineering","Writing Focus"], deadline:"Rolling (within 10 business days of submission)", cost:"Varies", aid:"Scholarships available", url:"https://northern.virginia.edu/programs/internal/inspire/", rolling:true, type:"Hybrid" }
+  { name:"Girls Who Code: Pathways Program", college:"Girls Who Code", grades:["9","10","11"], areas:["Computer Science","Artificial Intelligence (AI)"], deadline:"June 14, 2026", cost:"$0", aid:"Full Scholarship", url:"https://girlswhocode.com/programs/pathways", rolling:false, type:"Virtual" , desc:"A free, 7-week virtual summer program for rising 9th–11th grade girls and nonbinary students to learn coding, cybersecurity, data science, and AI — with no prior experience required. Qualifying U.S. students can receive a $300 grant to support participation, and the program is 100% free for all admitted students." },
+  { name:"Lumiere Research Scholar Program", college:"Lumiere Education", grades:["8","9","10","11","12"], areas:["STEM Focus","Humanities or Liberal Arts Focus","Social Science Interest","Computer Science"], deadline:"Rolling (four cohorts/year)", cost:"$2,990–$8,900", aid:"Scholarships available", url:"https://www.lumiere-education.com/", rolling:true, type:"Virtual" , desc:"A 12-week virtual mentored research program founded by Harvard and Oxford researchers that pairs high schoolers in grades 8–12 with PhD-level mentors to produce original research across dozens of disciplines. Over $1.7 million in need-based aid has been awarded, including the Breakthrough Scholar Program offering zero-cost access for qualifying low-income students." },
+  { name:"Wharton Global Youth: Pre-Baccalaureate (Online)", college:"University of Pennsylvania – Wharton", grades:["11","12"], areas:["Business Focus","Entrepreneurship"], deadline:"May 6, 2026 (Summer 2)", cost:"~$2,000+/course", aid:"Full Scholarship", url:"https://globalyouth.wharton.upenn.edu/pre-baccalaureate-program/", rolling:false, type:"Virtual" , desc:"A rigorous online pre-baccalaureate program through the Wharton School at the University of Pennsylvania where rising 11th and 12th graders take for-credit business courses in finance, marketing, management, and more. Philadelphia public and charter school students attend tuition-free — all other students can apply for scholarships on the Costs & Aid page." },
+  { name:"University of Iowa: Young Writers' Studio (Online)", college:"University of Iowa", grades:["9","10","11","12"], areas:["Writing Focus"], deadline:"April 14, 2026", cost:"$475/course", aid:"Scholarships available", url:"https://iyws.program.uiowa.edu/how-to-apply/online-courses", rolling:false, type:"Virtual" , desc:"A six-week asynchronous online creative writing program through the University of Iowa — the nation's most celebrated writing school — for rising 9th–12th graders with a 3.0+ GPA. Courses cover fiction, poetry, creative nonfiction, TV writing, and playwriting — with full and partial tuition grants available so cost is never a barrier." },
+  { name:"Kenyon Review: Young Writers Online Workshop", college:"Kenyon College / The Kenyon Review", grades:["11","12"], areas:["Writing Focus"], deadline:"April 13, 2026", cost:"$995", aid:"Scholarships available", url:"https://kenyonreview.org/event/young-writers-summer-online-workshops/", rolling:false, type:"Virtual" , desc:"A week-long virtual intensive writing workshop through the Kenyon Review for rising 11th and 12th graders, offering afternoon or evening sessions in fiction, poetry, essays, and multi-genre writing. Need-based aid is available on a case-by-case basis — and requesting aid does not affect admission." },
+  { name:"NSLI-Y Virtual Program (Critical Languages)", college:"U.S. Department of State / American Councils", grades:["9","10","11","12"], areas:["Language","Humanities or Liberal Arts Focus"], deadline:"~May 2026 (opens)", cost:"$0", aid:"Full Scholarship", url:"https://www.nsliforyouth.org/how-to-apply/apply/", rolling:false, type:"Virtual" , desc:"A completely free virtual language program funded by the U.S. Department of State for rising 9th–12th graders to study critical languages including Arabic, Chinese, Hindi, Korean, Persian, Russian, or Turkish. The fall 2026 program is expected to open applications in early May — this is a fully funded federal scholarship." },
+  { name:"UVA Northern Virginia: Inspire Summer", college:"University of Virginia Northern Virginia", grades:["10","11","12"], areas:["Business Focus","Engineering","Writing Focus"], deadline:"Rolling (within 10 business days of submission)", cost:"Varies", aid:"Scholarships available", url:"https://northern.virginia.edu/programs/internal/inspire/", rolling:true, type:"Hybrid" , desc:"A hybrid pre-college program at UVA Northern Virginia offering online and in-person 1-to-4-week courses in business, engineering, creative writing, and French for rising 10th–12th graders. Rolling admissions with decisions within 10 business days — need-based financial aid can be requested on the application." }
 ];
 
 // ── Deadline parsing ──
@@ -793,9 +630,6 @@ function gradeClass(g) {
 }
 
 // ── Render ──
-let sortCol = 3, sortDir = 1;
-let currentView = 'table'; // 'table' or 'card'
-
 function getDeadlineInfo(p) {
   const status = deadlineStatus(p);
   const dt = parseDeadline(p.deadline);
@@ -810,64 +644,7 @@ function getDeadlineInfo(p) {
 
 function renderAll(data) {
   document.getElementById('countNum').textContent = data.length;
-  renderTableView(data);
   renderCardView(data);
-}
-
-function renderTableView(data) {
-  const tbody = document.getElementById('tableBody');
-  const empty = document.getElementById('emptyState');
-  const table = document.getElementById('programTable');
-
-  if (!data.length) {
-    tbody.innerHTML = '';
-    empty.style.display = 'block';
-    table.style.display = 'none';
-    return;
-  }
-  empty.style.display = 'none';
-  table.style.display = '';
-
-  tbody.innerHTML = data.map(p => {
-    const { deadlineClass, badgeClass, badgeText } = getDeadlineInfo(p);
-
-    const gradeTags = p.grades.map(g =>
-      `<span class="grade-tag ${gradeClass(g)}">${gradeLabel(g)}</span>`
-    ).join('');
-
-    const areaTags = p.areas.slice(0,4).map(a =>
-      `<span class="area-tag ${areaClass(a)}">${a}</span>`
-    ).join('') + (p.areas.length > 4 ? `<span class="area-tag">+${p.areas.length-4}</span>` : '');
-
-    const isFree = p.cost === '$0' || p.cost.startsWith('$0');
-    const hasFullAid = p.aid.toLowerCase().includes('full');
-    const hasPartialAid = p.aid.toLowerCase().includes('partial') || p.aid.toLowerCase().includes('available');
-    let aidTag = '';
-    if (hasFullAid) aidTag = `<span class="aid-tag">✓ Full scholarship avail.</span>`;
-    else if (hasPartialAid) aidTag = `<span class="aid-tag partial">~ Partial aid available</span>`;
-    else aidTag = `<span class="aid-tag none">No aid listed</span>`;
-
-    const typeBadge = p.type === 'Virtual' ? '<span class="type-badge type-virtual">Virtual</span>' :
-                      p.type === 'Hybrid' ? '<span class="type-badge type-hybrid">Hybrid</span>' : '';
-
-    return `<tr>
-      <td>
-        <div class="program-name">${p.name}${typeBadge}</div>
-        <div class="program-college">${p.college}</div>
-      </td>
-      <td><div class="grade-tags">${gradeTags}</div></td>
-      <td><div class="area-tags">${areaTags}</div></td>
-      <td class="deadline-cell">
-        <div class="deadline-date ${deadlineClass}">${p.deadline}</div>
-        <span class="deadline-badge ${badgeClass}">${badgeText}</span>
-      </td>
-      <td class="cost-cell">
-        <span class="${isFree ? 'cost-free' : 'cost-paid'}">${p.cost}</span>
-        ${aidTag}
-      </td>
-      <td><a class="apply-btn" href="${p.url}" target="_blank" rel="noopener">Apply →</a></td>
-    </tr>`;
-  }).join('');
 }
 
 function renderCardView(data) {
@@ -903,10 +680,12 @@ function renderCardView(data) {
     const typeBadge = p.type === 'Virtual' ? '<span class="type-badge type-virtual">Virtual</span>' :
                       p.type === 'Hybrid' ? '<span class="type-badge type-hybrid">Hybrid</span>' : '';
 
+    const cardId = `card-${Math.random().toString(36).slice(2,8)}`;
     return `<div class="card">
       <div class="card-header">
         <div class="card-name">${p.name}${typeBadge}</div>
         <div class="card-college">${p.college}</div>
+        ${p.desc ? `<div class="program-desc" style="margin-top:6px">${p.desc}</div>` : ''}
       </div>
 
       <div class="card-deadline-row">
@@ -1004,21 +783,12 @@ function getFiltered() {
 
 function getSorted(data) {
   return [...data].sort((a, b) => {
-    let va, vb;
-    if (sortCol === 0) { va = a.name; vb = b.name; }
-    else if (sortCol === 1) { va = a.grades[0]; vb = b.grades[0]; }
-    else if (sortCol === 2) { va = a.areas[0] || ''; vb = b.areas[0] || ''; }
-    else if (sortCol === 3) {
-      va = parseDeadline(a.deadline) || new Date('2099-01-01');
-      vb = parseDeadline(b.deadline) || new Date('2099-01-01');
-      return sortDir * (va - vb);
-    }
-    else if (sortCol === 4) {
-      va = parseFloat((a.cost || '0').replace(/[^0-9.]/g,'')) || 0;
-      vb = parseFloat((b.cost || '0').replace(/[^0-9.]/g,'')) || 0;
-      return sortDir * (va - vb);
-    }
-    return sortDir * va.localeCompare(vb);
+    const da = parseDeadline(a.deadline) || new Date('2099-01-01');
+    const db = parseDeadline(b.deadline) || new Date('2099-01-01');
+    // rolling goes after dated entries
+    if (a.rolling && !b.rolling) return 1;
+    if (!a.rolling && b.rolling) return -1;
+    return da - db;
   });
 }
 
@@ -1026,32 +796,6 @@ function refresh() {
   renderAll(getSorted(getFiltered()));
   renderActiveFilters();
 }
-
-// ── View toggle ──
-function setView(v) {
-  currentView = v;
-  const tableWrap = document.getElementById('tableWrap');
-  const cardWrap = document.getElementById('cardWrap');
-  const btnTable = document.getElementById('btnTable');
-  const btnCard = document.getElementById('btnCard');
-  if (v === 'table') {
-    tableWrap.classList.add('active');
-    cardWrap.classList.remove('active');
-    btnTable.classList.add('active');
-    btnCard.classList.remove('active');
-  } else {
-    tableWrap.classList.remove('active');
-    cardWrap.classList.add('active');
-    btnCard.classList.add('active');
-    btnTable.classList.remove('active');
-  }
-}
-
-document.getElementById('btnTable').addEventListener('click', () => setView('table'));
-document.getElementById('btnCard').addEventListener('click', () => setView('card'));
-
-// Auto-switch to cards on mobile
-if (window.innerWidth <= 680) setView('card');
 
 // ── Active filter chips ──
 function renderActiveFilters() {
@@ -1094,20 +838,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   refresh();
 });
 
-document.querySelectorAll('th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = +th.dataset.col;
-    if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
-    document.querySelectorAll('th').forEach(t => { t.classList.remove('sorted'); const si = t.querySelector('.sort-icon'); if(si) si.textContent='↕'; });
-    th.classList.add('sorted');
-    const si = th.querySelector('.sort-icon');
-    if (si) si.textContent = sortDir === 1 ? '↑' : '↓';
-    refresh();
-  });
-});
-
 // ── Init ──
-// Remove programs with passed deadlines
 for (let i = programs.length - 1; i >= 0; i--) {
   if (deadlineStatus(programs[i]) === 'closed') programs.splice(i, 1);
 }
